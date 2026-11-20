@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StairedSTUDIO ile matematiği hemen anlayın!</title>
+    <meta name="description" content="TÜRKİYE'NİN EN İYİ EĞİTİM PLATFORMU">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent-color: #2563eb;
+            --custom-bg: #0f172a;
+            --custom-text: #f3f4f6;
+            --custom-font-size: 16px;
+        }
+        body {
+            background: linear-gradient(135deg, var(--custom-bg) 0%, #1e1b4b 50%, #09090b 100%);
+            color: var(--custom-text);
+            font-size: var(--custom-font-size);
+            min-height: 100vh;
+        }
+        input[type="file"]::file-selector-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        input[type="file"]::file-selector-button:hover { opacity: 0.9; }
+        .lined-paper {
+            background-image: linear-gradient(to bottom, transparent 27px, rgba(148, 163, 184, 0.18) 28px);
+            background-size: 100% 28px;
+            line-height: 28px;
+        }
+    </style>
+</head>
+<body class="text-gray-100 font-sans min-h-screen flex flex-col relative">
+
+    <!-- GİRİŞ EKRANI / LANDING PAGE -->
+    <div id="login-screen" class="min-h-screen flex flex-col justify-between bg-slate-950/95 text-gray-100 relative z-10">
+        
+        <!-- ÜST BUTONLAR -->
+        <header class="w-full p-6 flex justify-end items-center space-x-4 relative z-25">
+            <button type="button" onclick="openAuthModal('register')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center cursor-pointer">
+                <i class="fas fa-user-plus mr-2"></i> HESAP OLUŞTUR!
+            </button>
+            <button type="button" onclick="openAuthModal('login')" class="bg-amber-600 hover:bg-amber-500 text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center cursor-pointer">
+                <i class="fas fa-sign-in-alt mr-2"></i> GİRİŞ YAP!
+            </button>
+        </header>
+
+        <!-- ORTA BANNER / SLOGAN -->
+        <main class="flex flex-col items-center justify-center flex-grow text-center px-4 pt-16 pb-12 max-w-3xl mx-auto relative z-20">
+            <img src="MYSTAIREDLOGO3.png" alt="StairedSTUDIO Logo" class="w-32 h-32 object-contain bg-transparent mb-6 drop-shadow-2xl hover:scale-105 transition transform">
+            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-3 drop-shadow-lg">
+                KAYBETMEKTEN KORKMA BAŞARMAYI UM
+            </h1>
+            <p class="text-blue-400 font-semibold tracking-wider text-xs md:text-sm mb-6">
+                TÜRKİYE'NİN EN İYİ EĞİTİM PLATFORMU
+            </p>
+            <p class="text-red-400 text-xs font-bold bg-red-950/50 border border-red-800 px-4 py-2 rounded-lg mb-6 shadow-md">
+                <i class="fas fa-lock mr-1"></i> İçeriği görüntülemek için kayıtlı bir hesap ile giriş yapmalısınız!
+            </p>
+            <button type="button" onclick="openAuthModal('login')" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3.5 rounded-xl shadow-xl transition transform hover:scale-105 cursor-pointer">
+                Giriş Yap ve Devam Et
+            </button>
+        </main>
+
+        <!-- EN AŞAĞIDAKİ KOYU MAVİ İLETİŞİM KARTI -->
+        <footer class="w-full bg-slate-950/90 text-gray-300 py-8 px-6 border-t border-slate-800 relative z-25">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <div class="flex items-center space-x-3 mb-3 justify-center md:justify-start">
+                        <img src="MYSTAIREDLOGO3.png" alt="Logo" class="w-8 h-8 object-contain bg-transparent">
+                        <h3 class="text-xl font-bold text-white">StairedSTUDIO</h3>
+                    </div>
+                    <p class="text-xs text-gray-400">Eğitim ve başarı portalı.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-400 mb-3 uppercase tracking-wider">Sosyal Medya</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="https://www.youtube.com/@StairedSTUDIO" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                <i class="fab fa-youtube text-red-500 mr-2 text-sm"></i> <strong>YouTube:</strong> @StairedSTUDIO
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://tr.pinterest.com/StairedEgitimKurumlari/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                <i class="fab fa-pinterest text-red-600 mr-2 text-sm"></i> <strong>Pinterest:</strong> StairedEgitimKurumlari
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/StairedSTUDIO" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                <i class="fab fa-github text-white mr-2 text-sm"></i> <strong>GitHub:</strong> github.com/StairedSTUDIO
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-400 mb-3 uppercase tracking-wider">İletişim</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><i class="fas fa-phone text-green-400 mr-2"></i> +90 536 499 8804</li>
+                        <li><i class="fas fa-envelope text-yellow-400 mr-2"></i> stairedstudio@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-900 text-center text-xs text-gray-500">
+                © 2026 stairedstudio.com.tr - Tüm hakları saklıdır.
+            </div>
+        </footer>
+
+        <!-- GİRİŞ / KAYIT MODAL PENCERESİ -->
+        <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 flex justify-center items-center p-4 overflow-y-auto">
+            <div class="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 text-white relative shadow-2xl my-auto">
+                <button type="button" onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+
+                <!-- TABLAR -->
+                <div class="flex border-b border-slate-700 mb-6">
+                    <button type="button" id="m-tab-login" onclick="switchAuthTab('login')" class="w-1/2 py-2 text-center font-bold text-blue-400 border-b-2 border-blue-400 cursor-pointer">Giriş Yap</button>
+                    <button type="button" id="m-tab-register" onclick="switchAuthTab('register')" class="w-1/2 py-2 text-center font-bold text-gray-400 hover:text-white cursor-pointer">Kayıt Ol</button>
+                </div>
+
+                <!-- GİRİŞ FORMU -->
+                <form id="m-form-login" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">E-posta veya Kullanıcı Adı</label>
+                        <input type="text" id="login-input-user" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Şifre</label>
+                        <input type="password" id="login-input-pass" required class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                        <label class="inline-flex items-center space-x-2 text-xs text-gray-300 mt-2 cursor-pointer select-none">
+                            <input type="checkbox" id="login-show-pass" onchange="togglePasswordVisibility('login')" class="rounded accent-blue-500">
+                            <span>Şifreyi Görüntüle</span>
+                        </label>
+                    </div>
+                    <div id="login-error" class="text-xs text-red-400 hidden font-bold bg-red-950/50 p-2 rounded border border-red-800"></div>
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-lg transition shadow-lg cursor-pointer">Giriş Yap</button>
+                </form>
+
+                <!-- KAYIT FORMU -->
+                <form id="m-form-register" onsubmit="handleRegisterSubmit(event)" class="space-y-3 hidden">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Ad Soyad</label>
+                            <input type="text" id="reg-name" required placeholder="Ad Soyad" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Kullanıcı Adı</label>
+                            <input type="text" id="reg-username" required placeholder="Kullanıcı Adı" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">E-posta</label>
+                            <input type="email" id="reg-email" required placeholder="ornek@mail.com" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Telefon Numarası</label>
+                            <input type="tel" id="reg-phone" placeholder="05XXXXXXXXX" required class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Okul Adı</label>
+                            <input type="text" id="reg-school" placeholder="Okul" required class="w-full px-2 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Okul No</label>
+                            <input type="text" id="reg-schoolno" placeholder="No" required class="w-full px-2 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1">Sınıf/Şube</label>
+                            <input type="text" id="reg-class" placeholder="7/İ" required class="w-full px-2 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Profil Fotoğrafı</label>
+                        <input type="file" id="reg-pp-file" accept="image/*" class="w-full text-xs text-gray-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Şifre</label>
+                        <input type="password" id="reg-pass" required class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1">Şifre Tekrar</label>
+                        <input type="password" id="reg-pass-repeat" required class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500">
+                        <label class="inline-flex items-center space-x-2 text-xs text-gray-300 mt-2 cursor-pointer select-none">
+                            <input type="checkbox" id="reg-show-pass" onchange="togglePasswordVisibility('register')" class="rounded accent-emerald-500">
+                            <span>Şifreyi Görüntüle</span>
+                        </label>
+                    </div>
+                    <div id="pass-error" class="text-xs text-red-400 hidden"></div>
+                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-lg transition shadow-lg cursor-pointer">Kayıt Ol ve Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANA İÇ EKRAN -->
+    <div id="main-screen" class="hidden min-h-screen flex flex-col bg-slate-900/90 text-gray-100">
+        
+        <!-- ÜST BAR -->
+        <header class="bg-slate-950 text-white p-4 shadow-xl flex justify-between items-center border-b border-slate-800">
+            <div class="flex items-center space-x-3">
+                <button type="button" onclick="toggleSidebar()" class="text-white text-2xl hover:text-blue-400 focus:outline-none mr-1 cursor-pointer">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <img src="MYSTAIREDLOGO3.png" alt="StairedSTUDIO Logo" class="w-10 h-10 object-contain bg-transparent rounded-full border border-blue-400">
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wider leading-tight">StairedSTUDIO</h1>
+                    <p class="text-[10px] text-blue-400">KAYBETMEKTEN KORKMA BAŞARMAYI UM</p>
+                </div>
+            </div>
+
+            <!-- Sağ Taraf: Kullanıcı Bilgisi & Saat -->
+            <div class="bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-lg text-right flex items-center space-x-3">
+                <div>
+                    <div class="font-bold text-sm text-blue-300 flex items-center justify-end space-x-1">
+                        <span id="user-display-name">Kullanıcı</span>
+                        <i id="user-blue-badge" class="fas fa-check-circle text-blue-400 text-xs hidden" title="Onaylı Hesap"></i>
+                        <span id="user-role-badge"></span>
+                    </div>
+                    <div class="text-xs text-yellow-400"><i class="fas fa-star mr-1"></i>Puan: <span id="user-points">100</span></div>
+                </div>
+                <img id="header-user-pp" src="https://via.placeholder.com/150" alt="PP" class="w-9 h-9 object-cover rounded-full border-2 border-blue-500 bg-slate-800">
+                <div class="border-l border-slate-700 pl-3 text-[11px] text-gray-400 hidden sm:block">
+                    <div><i class="far fa-clock mr-1"></i><span id="current-time">--:--:--</span></div>
+                    <div><i class="far fa-calendar-alt mr-1"></i><span id="current-date">--.--.----</span></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ÜST YATAY NAVİGASYON BARI -->
+        <nav class="bg-slate-950/90 border-b border-slate-800 shadow-sm sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 flex items-center justify-start space-x-6 py-2.5 text-sm font-semibold text-gray-300 overflow-x-auto">
+                <button type="button" onclick="showSection('dashboard')" class="hover:text-blue-400 flex items-center cursor-pointer whitespace-nowrap"><i class="fas fa-home mr-1"></i> Ana Sayfa</button>
+                <button type="button" onclick="showSection('forum')" class="hover:text-blue-400 cursor-pointer whitespace-nowrap">FORUM</button>
+                <button type="button" onclick="showSection('chat')" class="hover:text-blue-400 cursor-pointer whitespace-nowrap">SOHBET</button>
+                <button type="button" onclick="openGrade7Math()" class="text-blue-400 font-bold hover:text-blue-300 cursor-pointer whitespace-nowrap"><i class="fas fa-book mr-1"></i> Dersler (7. Sınıf)</button>
+                <button type="button" onclick="showSection('ask')" class="text-amber-400 font-bold hover:text-amber-300 cursor-pointer whitespace-nowrap"><i class="fas fa-question-circle mr-1"></i> Sorumu Sor</button>
+                <button type="button" onclick="showSection('toplist')" class="text-yellow-400 font-bold hover:text-yellow-300 cursor-pointer whitespace-nowrap"><i class="fas fa-trophy mr-1"></i> Toplist</button>
+            </div>
+        </nav>
+
+        <!-- SOL KATALOG (SIDEBAR) -->
+        <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-slate-950 text-white z-40 transform -translate-x-full transition-transform duration-300 overflow-y-auto flex flex-col justify-between border-r border-slate-800 shadow-2xl">
+            <div class="p-5">
+                <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <img src="MYSTAIREDLOGO3.png" alt="Logo" class="w-6 h-6 object-contain bg-transparent">
+                        <h2 class="text-xl font-bold text-blue-400">Katalog Menü</h2>
+                    </div>
+                    <button type="button" onclick="toggleSidebar()" class="text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+                </div>
+                <ul class="space-y-3 font-medium text-sm">
+                    <li><button type="button" onclick="openGrade7Math()" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-book mr-2 text-blue-400"></i>Dersler (7. Sınıf Matematik)</button></li>
+                    <li><button type="button" onclick="showSection('ask')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-question-circle mr-2 text-amber-400"></i>Sorumu Sor</button></li>
+                    <li><button type="button" onclick="showSection('toplist')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-trophy mr-2 text-yellow-400"></i>Toplist</button></li>
+                    <li><button type="button" onclick="showSection('calculator')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-calculator mr-2 text-green-400"></i>Hesap Makinesi</button></li>
+                    <li><a href="https://mebi.eba.gov.tr" target="_blank" rel="noopener noreferrer" class="block py-2 px-3 rounded hover:bg-slate-900"><i class="fas fa-university mr-2 text-yellow-400"></i>MEBİ</a></li>
+                    <li><a href="https://www.eba.gov.tr" target="_blank" rel="noopener noreferrer" class="block py-2 px-3 rounded hover:bg-slate-900"><i class="fas fa-graduation-cap mr-2 text-red-400"></i>EBA</a></li>
+                    <li><button type="button" onclick="showSection('notes')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-sticky-note mr-2 text-yellow-300"></i>Gelişmiş Notlarım</button></li>
+                    <li><button type="button" onclick="showSection('settings')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-cog mr-2 text-teal-400"></i>Ayarlar</button></li>
+                    <li><button type="button" onclick="showSection('about')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 cursor-pointer"><i class="fas fa-info-circle mr-2 text-gray-400"></i>Hakkımızda</button></li>
+                    <li id="admin-menu-item" class="hidden"><button type="button" onclick="showSection('admin')" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 text-red-400 font-bold cursor-pointer"><i class="fas fa-user-shield mr-2"></i>Admin Paneli</button></li>
+                    <li><button type="button" onclick="logoutUser()" class="w-full text-left py-2 px-3 rounded hover:bg-slate-900 text-red-400 font-bold cursor-pointer"><i class="fas fa-sign-out-alt mr-2"></i>Çıkış Yap</button></li>
+                </ul>
+            </div>
+            <div class="p-4 border-t border-slate-800 text-center">
+                <p class="text-[10px] text-gray-500">© 2026 stairedstudio.com.tr - Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+
+        <!-- İÇERİK ALANLARI -->
+        <main class="flex-grow p-6 max-w-7xl mx-auto w-full">
+            
+            <section id="sec-dashboard">
+                <h2 class="text-2xl font-bold mb-4">Hoş Geldiniz!</h2>
+                <p class="text-gray-300">7. Sınıf Matematik ünitelerine erişebilir, çözemediğiniz soruları fotoğrafıyla sorabilir, forumdaki anketlere katılabilir veya sohbet odasında mesajlaşabilirsiniz.</p>
+            </section>
+
+            <!-- DERSLER (SADECE 7. SINIF MATEMATİK - 10 ÜNİTE) -->
+            <section id="sec-courses" class="hidden">
+                <h2 class="text-2xl font-bold mb-6 border-b border-slate-800 pb-2">7. Sınıf Matematik Ders Üniteleri (10 Ünite)</h2>
+
+                <div id="units-list-view" class="space-y-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm font-bold text-blue-400"><i class="fas fa-square-root-alt mr-2"></i>7. Sınıf Matematik</span>
+                        <span class="text-xs text-gray-400">Pardus / Linux / Windows Uyumlu İndirme</span>
+                    </div>
+                    <div id="units-container" class="space-y-3"></div>
+                </div>
+
+                <div id="unit-detail-view" class="hidden bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl">
+                    <button type="button" onclick="backToUnits()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2 rounded-lg mb-4 cursor-pointer"><i class="fas fa-arrow-left mr-1"></i> Ünitelere Dön</button>
+                    <h3 id="unit-detail-title" class="text-xl font-bold text-white mb-4">--</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                            <h4 class="font-bold text-blue-400 mb-3 text-center"><i class="fas fa-file-alt mr-1"></i> Test Modülü</h4>
+                            <div id="test-content-box" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                            <h4 class="font-bold text-emerald-400 mb-3 text-center"><i class="fas fa-file-powerpoint mr-1"></i> Ortak Sunum / Dosya</h4>
+                            <div id="presentation-content-box" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SORUMU SOR (ALT ALTA LİSTE + FOTOĞRAF) -->
+            <section id="sec-ask" class="hidden">
+                <h2 class="text-2xl font-bold mb-4 border-b border-slate-800 pb-2"><i class="fas fa-question-circle text-amber-400 mr-2"></i>Sorumu Sor (Adminlere Soru & Fotoğraf Gönder)</h2>
+                
+                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl mb-6 shadow-xl space-y-3">
+                    <h3 class="text-sm font-bold text-amber-400">Çözemediğin Soruyu Yaz veya Fotoğrafını Yükle</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Ünite Seçimi</label>
+                            <select id="ask-unit-select" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+                                <option value="1. Ünite">1. Ünite</option>
+                                <option value="2. Ünite">2. Ünite</option>
+                                <option value="3. Ünite">3. Ünite</option>
+                                <option value="4. Ünite">4. Ünite</option>
+                                <option value="5. Ünite">5. Ünite</option>
+                                <option value="6. Ünite">6. Ünite</option>
+                                <option value="7. Ünite">7. Ünite</option>
+                                <option value="8. Ünite">8. Ünite</option>
+                                <option value="9. Ünite">9. Ünite</option>
+                                <option value="10. Ünite">10. Ünite</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Soru Fotoğrafı (İsteğe Bağlı)</label>
+                            <input type="file" id="ask-photo-input" accept="image/*" class="w-full text-xs text-gray-400 bg-slate-900 border border-slate-700 rounded-lg p-1.5">
+                        </div>
+                    </div>
+                    <textarea id="ask-question-text" placeholder="Takıldığın noktayı veya soruyu buraya yaz..." class="w-full h-24 bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:outline-none focus:border-amber-400"></textarea>
+                    <div class="flex justify-end">
+                        <button type="button" onclick="submitStudentQuestion()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold px-6 py-2.5 rounded-lg text-sm cursor-pointer shadow-lg">
+                            <i class="fas fa-paper-plane mr-1"></i> Soruyu Gönder
+                        </button>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-white mb-3">Gönderilen Sorular (Alt Alta Liste)</h3>
+                <div id="questions-list-container" class="space-y-4"></div>
+            </section>
+
+            <!-- TOPLIST -->
+            <section id="sec-toplist" class="hidden">
+                <h2 class="text-2xl font-bold mb-4 border-b border-slate-800 pb-2"><i class="fas fa-trophy text-yellow-400 mr-2"></i>Toplist — Puan Sıralaması</h2>
+                <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl">
+                    <div id="toplist-container" class="space-y-3"></div>
+                </div>
+            </section>
+
+            <!-- FORUM & DUYURULAR & ANKETLER -->
+            <section id="sec-forum" class="hidden">
+                <h2 class="text-2xl font-bold mb-4 border-b border-slate-800 pb-2">Duyurular & Forum</h2>
+                
+                <div id="admin-forum-post-box" class="bg-slate-950 border border-slate-800 p-4 rounded-xl mb-6 shadow-xl space-y-3 hidden">
+                    <h3 class="font-bold text-blue-400 mb-1"><i class="fas fa-edit mr-2 text-emerald-500"></i>Duyuru / Gönderi Paylaş (Herkes Görür)</h3>
+                    <textarea id="forum-input-text" placeholder="Duyuruyu yazın..." class="w-full p-3 bg-slate-900 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500"></textarea>
+                    
+                    <!-- ANKET EKLEME SEÇENEĞİ -->
+                    <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-lg space-y-2">
+                        <label class="inline-flex items-center space-x-2 text-xs font-bold text-amber-400 cursor-pointer">
+                            <input type="checkbox" id="forum-enable-poll" onchange="toggleForumPollBuilder()" class="rounded accent-amber-500">
+                            <span><i class="fas fa-poll mr-1"></i> Bu Gönderiye Anket Ekle (Kim Hangi Şıkkı Seçti Admin Görür)</span>
+                        </label>
+                        <div id="forum-poll-builder" class="hidden space-y-2 pt-2 border-t border-slate-800">
+                            <input type="text" id="poll-question-input" placeholder="Anket Sorusu (örn: Haftaya hangi üniteden canlı test yapalım?)" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-white text-xs focus:outline-none focus:border-amber-400">
+                            <input type="text" id="poll-options-input" placeholder="Şıkları virgülle ayırarak yazın (örn: 1. Ünite, 2. Ünite, 3. Ünite)" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-1.5 text-white text-xs focus:outline-none focus:border-amber-400">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <input type="file" id="forum-file-input" class="text-xs text-gray-400">
+                        <button type="button" onclick="postForumMessage()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-lg text-sm cursor-pointer">Yayınla</button>
+                    </div>
+                </div>
+
+                <div id="forum-posts" class="space-y-4"></div>
+            </section>
+
+            <!-- CANLI SOHBET -->
+            <section id="sec-chat" class="hidden">
+                <h2 class="text-2xl font-bold mb-2">Canlı Sohbet Odası</h2>
+                <div id="pinned-messages-container" class="space-y-2 mb-4"></div>
+                <div class="bg-slate-950 border border-slate-800 rounded-xl shadow-md p-4 h-96 overflow-y-auto mb-3 space-y-3 flex flex-col" id="chat-box"></div>
+                
+                <!-- SADECE ADMİNLERE & HER TÜRLÜ DOSYA GÖNDERME -->
+                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <label class="inline-flex items-center space-x-2 text-xs font-bold text-red-400 cursor-pointer bg-red-950/30 border border-red-900/60 px-3 py-1.5 rounded-lg">
+                            <input type="checkbox" id="chat-only-admins" class="accent-red-500">
+                            <span><i class="fas fa-user-shield mr-1"></i> Sadece Adminlere Gönder (Diğer öğrenciler göremez)</span>
+                        </label>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[11px] text-gray-400">Dosya Ekle (Her Türlü):</span>
+                            <input type="file" id="chat-file-input" class="text-xs text-gray-300">
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <input type="text" id="chat-input" placeholder="Mesajınızı yazın ve Enter'a basın..." class="flex-grow bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                        <button type="button" onclick="sendChatMessage()" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-bold cursor-pointer">Gönder</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HESAP MAKİNESİ -->
+            <section id="sec-calculator" class="hidden">
+                <h2 class="text-2xl font-bold mb-4">Gelişmiş Hesap Makinesi (Klavye Uyumlu)</h2>
+                <div class="max-w-md w-full bg-slate-950 border border-slate-800 p-6 rounded-2xl shadow-2xl text-white mx-auto">
+                    <input type="text" id="calc-screen" readonly class="w-full bg-slate-900 text-right text-3xl p-4 rounded-xl mb-6 font-mono border border-slate-800 shadow-inner">
+                    <div class="grid grid-cols-4 gap-3">
+                        <button type="button" onclick="calcClear()" class="bg-red-600 hover:bg-red-500 p-4 rounded-xl font-bold text-lg cursor-pointer">C</button>
+                        <button type="button" onclick="calcAppend('Math.sqrt(')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">√</button>
+                        <button type="button" onclick="calcAppend('**2')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">x²</button>
+                        <button type="button" onclick="calcAppend('/')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">/</button>
+                        
+                        <button type="button" onclick="calcAppend('7')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">7</button>
+                        <button type="button" onclick="calcAppend('8')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">8</button>
+                        <button type="button" onclick="calcAppend('9')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">9</button>
+                        <button type="button" onclick="calcAppend('*')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">*</button>
+                        
+                        <button type="button" onclick="calcAppend('4')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">4</button>
+                        <button type="button" onclick="calcAppend('5')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">5</button>
+                        <button type="button" onclick="calcAppend('6')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">6</button>
+                        <button type="button" onclick="calcAppend('-')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">-</button>
+                        
+                        <button type="button" onclick="calcAppend('1')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">1</button>
+                        <button type="button" onclick="calcAppend('2')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">2</button>
+                        <button type="button" onclick="calcAppend('3')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">3</button>
+                        <button type="button" onclick="calcAppend('+')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl font-bold text-lg cursor-pointer">+</button>
+                        
+                        <button type="button" onclick="calcAppend('0')" class="col-span-2 bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">0</button>
+                        <button type="button" onclick="calcAppend('.')" class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl text-xl cursor-pointer">.</button>
+                        <button type="button" onclick="calcSolve()" class="bg-blue-600 hover:bg-blue-500 p-4 rounded-xl font-bold text-xl cursor-pointer">=</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GELİŞMİŞ NOTLARIM -->
+            <section id="sec-notes" class="hidden">
+                <h2 class="text-2xl font-bold mb-4">Gelişmiş Notlarım</h2>
+                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl mb-6 space-y-3 shadow-lg">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <h3 class="text-sm font-bold text-yellow-400"><i class="fas fa-pen-fancy mr-1"></i> Yeni Not Oluştur veya Düzenle</h3>
+                        <div class="flex items-center space-x-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                            <span class="text-[11px] text-gray-400 mr-1">Emoji Ekle:</span>
+                            <button type="button" onclick="insertEmoji('📌')" class="hover:scale-125 transition cursor-pointer text-sm">📌</button>
+                            <button type="button" onclick="insertEmoji('📚')" class="hover:scale-125 transition cursor-pointer text-sm">📚</button>
+                            <button type="button" onclick="insertEmoji('✏️')" class="hover:scale-125 transition cursor-pointer text-sm">✏️</button>
+                            <button type="button" onclick="insertEmoji('✅')" class="hover:scale-125 transition cursor-pointer text-sm">✅</button>
+                            <button type="button" onclick="insertEmoji('⭐')" class="hover:scale-125 transition cursor-pointer text-sm">⭐</button>
+                            <button type="button" onclick="insertEmoji('🔥')" class="hover:scale-125 transition cursor-pointer text-sm">🔥</button>
+                            <button type="button" onclick="insertEmoji('📐')" class="hover:scale-125 transition cursor-pointer text-sm">📐</button>
+                            <button type="button" onclick="insertEmoji('💡')" class="hover:scale-125 transition cursor-pointer text-sm">💡</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="note-edit-id">
+                    <input type="text" id="note-title" placeholder="Not Başlığı (örn: 📌 Matematik Formülleri)..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white text-sm focus:outline-none focus:border-yellow-400">
+                    <textarea id="note-input" placeholder="Defter çizgili alanınıza notunuzu yazın..." class="w-full h-36 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-white text-sm lined-paper focus:outline-none focus:border-yellow-400"></textarea>
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div class="flex items-center space-x-2">
+                            <label class="text-xs text-gray-400">Kart Rengi:</label>
+                            <select id="note-color" class="bg-slate-900 border border-slate-700 text-white text-xs px-3 py-1.5 rounded-lg">
+                                <option value="yellow">Sarı / Önemli</option>
+                                <option value="blue">Mavi / Ders</option>
+                                <option value="emerald">Yeşil / Ödev</option>
+                                <option value="purple">Mor / Proje</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="saveNote()" id="note-save-btn" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 px-6 py-2 rounded-lg font-extrabold text-sm cursor-pointer shadow">Notu Kaydet</button>
+                    </div>
+                </div>
+                <div id="notes-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </section>
+
+            <!-- AYARLAR (PROFİLİM YERİNE - KİŞİSEL BİLGİ + GÖRÜNÜM ÖZELLEŞTİRME) -->
+            <section id="sec-settings" class="hidden">
+                <h2 class="text-2xl font-bold mb-4"><i class="fas fa-cog text-teal-400 mr-2"></i>Ayarlar & Kişiselleştirme</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl space-y-6">
+                        <div class="flex items-center space-x-6 border-b border-slate-800 pb-4">
+                            <img id="profile-page-pp" src="https://via.placeholder.com/150" alt="PP" class="w-20 h-20 object-cover rounded-full border-2 border-blue-500 shadow-md">
+                            <div>
+                                <h3 id="profile-card-name" class="text-xl font-bold text-white">--</h3>
+                                <p id="profile-card-role" class="text-xs text-blue-400 font-semibold mt-1">Kullanıcı</p>
+                                <div class="mt-2">
+                                    <label class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded cursor-pointer inline-block">
+                                        <i class="fas fa-camera mr-1"></i> Fotoğrafı Değiştir
+                                        <input type="file" id="update-pp-file" accept="image/*" onchange="updateUserProfilePic(event)" class="hidden">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div><label class="text-xs text-gray-400">Ad Soyad:</label> <input type="text" id="prof-name" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            <div><label class="text-xs text-gray-400">Kullanıcı Adı:</label> <input type="text" id="prof-username" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            <div><label class="text-xs text-gray-400">E-posta:</label> <input type="email" id="prof-email" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            <div><label class="text-xs text-gray-400">Telefon:</label> <input type="text" id="prof-phone" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            <div><label class="text-xs text-gray-400">Okul Adı:</label> <input type="text" id="prof-school" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div><label class="text-xs text-gray-400">Okul No:</label> <input type="text" id="prof-schoolno" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                                <div><label class="text-xs text-gray-400">Sınıf/Şube:</label> <input type="text" id="prof-class" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                            </div>
+                            <div class="md:col-span-2"><label class="text-xs text-gray-400">Şifre Yenile:</label> <input type="password" id="prof-pass" placeholder="Yeni şifre (değiştirmek istemiyorsanız boş bırakın)" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white mt-1 focus:border-blue-500 focus:outline-none"></div>
+                        </div>
+
+                        <button type="button" onclick="saveDetailedProfile()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-lg font-bold text-sm cursor-pointer shadow-lg">Bilgilerimi Kaydet</button>
+                    </div>
+
+                    <!-- GÖRÜNÜM & TEMA ÖZELLEŞTİRME -->
+                    <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl space-y-5">
+                        <h3 class="text-lg font-bold text-teal-400 border-b border-slate-800 pb-2"><i class="fas fa-palette mr-2"></i>Kişisel Görünüm Ayarları</h3>
+                        <p class="text-[11px] text-gray-400">Bu ayarlar sadece senin ekranını özelleştirir, diğer kullanıcıları etkilemez.</p>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-semibold mb-1">Tema Vurgu Rengi:</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="color" id="set-accent-color" value="#2563eb" onchange="previewAppearance()" class="w-10 h-9 rounded cursor-pointer bg-slate-900 border border-slate-700">
+                                <span class="text-xs text-gray-400">Buton ve vurgu tonu</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-semibold mb-1">Site Arka Plan Rengi:</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="color" id="set-bg-color" value="#0f172a" onchange="previewAppearance()" class="w-10 h-9 rounded cursor-pointer bg-slate-900 border border-slate-700">
+                                <span class="text-xs text-gray-400">Kendi arka plan rengin</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-semibold mb-1">Yazı Rengi:</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="color" id="set-text-color" value="#f3f4f6" onchange="previewAppearance()" class="w-10 h-9 rounded cursor-pointer bg-slate-900 border border-slate-700">
+                                <span class="text-xs text-gray-400">Genel metin rengi</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs text-gray-300 font-semibold mb-1">Yazı Boyutu: <span id="font-size-label" class="text-teal-400 font-bold">16px</span></label>
+                            <input type="range" id="set-font-size" min="13" max="20" value="16" oninput="previewAppearance()" class="w-full accent-teal-500 cursor-pointer">
+                        </div>
+
+                        <div class="flex flex-col space-y-2 pt-2">
+                            <button type="button" onclick="saveAppearanceSettings()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 rounded-lg text-xs cursor-pointer shadow">Görünümü Kaydet</button>
+                            <button type="button" onclick="resetAppearanceSettings()" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-300 font-semibold py-2 rounded-lg text-xs cursor-pointer">Varsayılana Sıfırla</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ADMIN YÖNETİM PANELİ -->
+            <section id="sec-admin" class="hidden">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <button type="button" onclick="openPromoteModal()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg cursor-pointer flex items-center">
+                            <i class="fas fa-level-up-alt mr-2"></i> Sınıf Atlat
+                        </button>
+                        <h2 class="text-2xl font-bold text-red-500">Admin Yönetim Paneli</h2>
+                    </div>
+                    <span class="text-[11px] text-emerald-400 bg-emerald-950/40 border border-emerald-800 px-3 py-1 rounded-lg">
+                        <i class="fas fa-calendar-check mr-1"></i> Otomatik Yıl Sonu Sınıf Atlama Aktif
+                    </span>
+                </div>
+
+                <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl space-y-4 relative pb-12">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="switchAdminTab('all')" id="adm-tab-all" class="bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Tüm Kullanıcılar</button>
+                            <button type="button" onclick="switchAdminTab('students')" id="adm-tab-students" class="bg-slate-800 text-gray-300 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Öğrenciler</button>
+                            <button type="button" onclick="switchAdminTab('teachers')" id="adm-tab-teachers" class="bg-slate-800 text-gray-300 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Öğretmenler</button>
+                            <button type="button" onclick="switchAdminTab('admins')" id="adm-tab-admins" class="bg-slate-800 text-gray-300 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer">Adminler</button>
+                        </div>
+
+                        <label class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-gray-200 font-bold cursor-pointer">
+                            <input type="checkbox" id="admin-select-all-checkbox" onchange="toggleAdminSelectAll(this.checked)" class="accent-red-500">
+                            <span>Tümünü Seç</span>
+                        </label>
+                    </div>
+
+                    <p class="text-sm text-gray-300">Kayıtlı tüm kullanıcıları burada görebilir, arayabilir ve puan/yetki işlemlerini yönetebilirsin:</p>
+                    <div class="flex space-x-2">
+                        <input type="text" id="admin-search-input" oninput="adminSearchUser()" placeholder="İsim, kullanıcı adı, okul no veya telefon ile ara..." class="border border-slate-700 bg-slate-900 text-white p-2.5 rounded-lg flex-grow focus:outline-none focus:border-red-500">
+                    </div>
+                    <div id="admin-search-results" class="space-y-4 mt-4"></div>
+
+                    <!-- SAĞ ALTTA KÜÇÜK ŞEKİLDE HESAP SAYISI VE KATALOG SAYACI -->
+                    <div id="admin-bottom-counter" class="absolute bottom-3 right-4 text-[11px] text-gray-400 bg-slate-900/90 border border-slate-800 px-3 py-1 rounded-md shadow">
+                        Hesap Sayısı: <strong class="text-white">0</strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HAKKIMIZDA & SOSYAL MEDYA -->
+            <section id="sec-about" class="hidden">
+                <h2 class="text-2xl font-bold mb-4">Hakkımızda & Proje Ekibi</h2>
+                <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl shadow-xl space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 border border-slate-800 text-white p-5 rounded-xl shadow-md">
+                            <span class="bg-blue-600 text-xs font-bold px-2 py-0.5 rounded">Geliştirici & Kurucu</span>
+                            <h3 class="text-xl font-extrabold mt-2">ZEİN ELDİEN ZUGHAYER</h3>
+                            <p class="text-xs text-gray-400 mt-1">7/İ 624 MESİHO ÖĞRENCİSİ - YAZILIM</p>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 text-white p-5 rounded-xl shadow-md">
+                            <span class="bg-purple-600 text-xs font-bold px-2 py-0.5 rounded">Test & Kalite</span>
+                            <h3 class="text-xl font-extrabold mt-2">ASAF BERK NURLU</h3>
+                            <p class="text-xs text-gray-400 mt-1">7/İ 654 MESİHO ÖĞRENCİSİ - BETA TEST</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-900/60 to-blue-900/60 border border-purple-700/50 p-5 rounded-xl text-center space-y-3 shadow-lg">
+                        <h3 class="text-lg font-extrabold text-white flex items-center justify-center space-x-2">
+                            <i class="fas fa-paperplane text-yellow-400"></i>
+                            <span>Görüş, İstek ve Öneri Formu</span>
+                        </h3>
+                        <p class="text-xs text-gray-300 max-w-xl mx-auto">
+                            Platformumuzu geliştirmemiz için istek ve önerilerinizi aşağıdaki formu doldurarak bize iletebilirsiniz.
+                        </p>
+                        <div>
+                            <a href="https://forms.gle/aB6j9qLnG17NkQ8F7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl transition transform hover:scale-105 shadow-md text-sm">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Google Formu Doldur</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl space-y-4">
+                        <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider">İletişim & Sosyal Medya</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="space-y-2">
+                                <p><i class="fas fa-phone text-green-400 mr-2"></i> +90 536 499 8804</p>
+                                <p><i class="fas fa-envelope text-yellow-400 mr-2"></i> stairedstudio@gmail.com</p>
+                            </div>
+                            <div class="space-y-2">
+                                <p>
+                                    <a href="https://www.youtube.com/@StairedSTUDIO" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                        <i class="fab fa-youtube text-red-500 mr-2 text-sm"></i> <strong>YouTube:</strong> @StairedSTUDIO
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="https://tr.pinterest.com/StairedEgitimKurumlari/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                        <i class="fab fa-pinterest text-red-600 mr-2 text-sm"></i> <strong>Pinterest:</strong> StairedEgitimKurumlari
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="https://github.com/StairedSTUDIO" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition inline-flex items-center">
+                                        <i class="fab fa-github text-white mr-2 text-sm"></i> <strong>GitHub:</strong> github.com/StairedSTUDIO
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-slate-950 border-t border-slate-800 text-white p-4 text-center text-xs mt-auto">
+            © 2026 stairedstudio.com.tr - Tüm hakları saklıdır.
+        </footer>
+    </div>
+
+    <!-- SINIF ATLATMA ÖZEL MENÜ MODALI -->
+    <div id="promote-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-70 flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-xl rounded-2xl p-6 text-white relative shadow-2xl space-y-4">
+            <button type="button" onclick="closePromoteModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 pr-8">
+                <div class="flex items-center space-x-2">
+                    <h3 class="text-lg font-bold text-amber-400"><i class="fas fa-level-up-alt mr-2"></i>Sınıf Atlatma / Geri Alma Menüsü</h3>
+                    <span id="promote-selected-badge" class="bg-slate-800 text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-slate-700">0 / 0 Seçili</span>
+                </div>
+                <button type="button" id="promote-select-all-btn" onclick="togglePromoteSelectAll()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition">
+                    Tamamını Seç
+                </button>
+            </div>
+            <p class="text-xs text-gray-300">Sınıfını yükseltmek veya bir önceki sınıfa geri almak istediğin öğrencileri seç (5 → 6 → 7 → 8 → Mezun veya geri):</p>
+            <div id="promote-students-list" class="max-h-72 overflow-y-auto space-y-2 bg-slate-950 border border-slate-800 p-3 rounded-xl"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                <button type="button" onclick="demoteSelectedStudents()" class="w-full bg-red-600 hover:bg-red-500 text-white font-extrabold py-2.5 rounded-lg cursor-pointer text-xs sm:text-sm shadow">
+                    <i class="fas fa-undo mr-1"></i> Geri Eski Sınıfa Götür
+                </button>
+                <button type="button" onclick="promoteSelectedStudents()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-extrabold py-2.5 rounded-lg cursor-pointer text-xs sm:text-sm shadow">
+                    <i class="fas fa-check-double mr-1"></i> Seçili Öğrencileri Atlat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KULLANICI BİLGİLERİ GÖRÜNTÜLEME MODALI -->
+    <div id="user-info-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-70 flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl p-6 text-white relative shadow-2xl">
+            <button type="button" onclick="closeUserInfoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold mb-4 text-blue-400 border-b border-slate-800 pb-2"><i class="fas fa-user-shield mr-2"></i>Kullanıcı Detay Bilgileri</h3>
+            <div id="user-modal-content" class="space-y-3 text-sm text-gray-300"></div>
+        </div>
+    </div>
+
+    <!-- PUAN VERME ÖZEL MENÜ MODALI -->
+    <div id="points-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-70 flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-slate-700 w-full max-w-sm rounded-2xl p-6 text-white relative shadow-2xl space-y-4">
+            <button type="button" onclick="closePointsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-lg font-bold text-yellow-400 flex items-center space-x-2">
+                <i class="fas fa-star"></i>
+                <span id="points-modal-username">Puan Yönetimi</span>
+            </h3>
+            <input type="hidden" id="points-target-userid">
+            <div>
+                <label class="block text-xs text-gray-400 mb-1">Eklenecek / Eksiltilecek Puan Miktarı:</label>
+                <input type="number" id="points-input-amount" value="10" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white font-bold text-center text-lg focus:outline-none focus:border-yellow-400">
+                <p class="text-[10px] text-gray-400 mt-1">Puan eksiltmek için başına eksi (-) koyabilirsin (örn: -20).</p>
+            </div>
+            <div class="flex space-x-2 pt-2">
+                <button type="button" onclick="applyPointsChange()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-extrabold py-2.5 rounded-lg transition cursor-pointer text-sm shadow">Puanı Uygula</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST BİLDİRİM -->
+    <div id="toast-notification" class="fixed top-5 right-5 bg-blue-600 text-white px-5 py-3 rounded-xl shadow-2xl hidden z-80 font-semibold text-sm"></div>
+
+    <!-- JAVASCRIPT MANTIĞI -->
+    <script>
+        const MY_ADMIN_TOKEN = "STARED_SECURE_ADMIN_KEY_2026_ZEIN";
+
+        if (!localStorage.getItem('staired_clean_reset_v2')) {
+            localStorage.removeItem('staired_registered_users');
+            localStorage.removeItem('staired_chat_messages');
+            localStorage.removeItem('staired_pinned_messages');
+            localStorage.removeItem('staired_forum_posts');
+            localStorage.removeItem('staired_student_questions');
+            localStorage.removeItem('staired_current_user');
+            localStorage.removeItem('staired_last_auto_promote_year');
+            localStorage.setItem('staired_clean_reset_v2', 'true');
+        }
+
+        let currentUser = null;
+        let activeUnitIndex = null;
+        let currentAdminTab = 'all';
+        let selectedAdminUserIds = new Set();
+        let selectedPromoteIds = new Set();
+
+        let registeredUsers = JSON.parse(localStorage.getItem('staired_registered_users')) || [];
+        let chatMessages = JSON.parse(localStorage.getItem('staired_chat_messages')) || [];
+        let pinnedMessages = JSON.parse(localStorage.getItem('staired_pinned_messages')) || [];
+        let forumPosts = JSON.parse(localStorage.getItem('staired_forum_posts')) || [];
+        let studentQuestions = JSON.parse(localStorage.getItem('staired_student_questions')) || [];
+
+        const defaultGrade7Math = Array.from({length: 10}, (_, i) => ({
+            id: i + 1,
+            name: `${i + 1}. Ünite`,
+            tests: [],
+            files: []
+        }));
+
+        let grade7MathUnits = JSON.parse(localStorage.getItem('staired_grade7_math_units')) || defaultGrade7Math;
+
+        window.onload = function() {
+            if (!localStorage.getItem('staired_admin_secure_token')) {
+                localStorage.setItem('staired_admin_secure_token', MY_ADMIN_TOKEN);
+            }
+
+            checkAutoYearPromotion();
+
+            const savedUserSession = localStorage.getItem('staired_current_user');
+            if (savedUserSession) {
+                const parsedUser = JSON.parse(savedUserSession);
+                const foundInDB = registeredUsers.find(u => u.id === parsedUser.id);
+                if (foundInDB) {
+                    currentUser = foundInDB;
+                    currentUser.isOnline = true;
+                    updateUserInDB();
+                    activateUserSession();
+                } else {
+                    localStorage.removeItem('staired_current_user');
+                }
+            }
+
+            setupEnterKeyChat();
+            setupKeyboardCalculator();
+            window.addEventListener('storage', syncDataAcrossTabs);
+        };
+
+        function checkAutoYearPromotion() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const lastPromotedYear = Number(localStorage.getItem('staired_last_auto_promote_year')) || currentYear;
+            if (currentYear > lastPromotedYear && now.getMonth() >= 8) {
+                registeredUsers.forEach(u => {
+                    if (u.isStudent && u.classBranch) {
+                        u.classBranch = advanceClassString(u.classBranch);
+                    }
+                });
+                localStorage.setItem('staired_last_auto_promote_year', String(currentYear));
+                saveDataDB();
+            } else if (!localStorage.getItem('staired_last_auto_promote_year')) {
+                localStorage.setItem('staired_last_auto_promote_year', String(currentYear));
+            }
+        }
+
+        function advanceClassString(cls) {
+            if (!cls) return "6/A";
+            if (cls === "Mezun") return "Mezun";
+            const match = cls.match(/^(\d+)(.*)$/);
+            if (match) {
+                const num = parseInt(match[1], 10);
+                const rest = match[2] || "";
+                if (num >= 8) return "Mezun";
+                return `${num + 1}${rest}`;
+            }
+            return cls;
+        }
+
+        function revertClassString(cls) {
+            if (!cls) return "5/A";
+            if (cls === "Mezun") return "8/A";
+            const match = cls.match(/^(\d+)(.*)$/);
+            if (match) {
+                const num = parseInt(match[1], 10);
+                const rest = match[2] || "";
+                if (num <= 5) return `5${rest}`;
+                return `${num - 1}${rest}`;
+            }
+            return cls;
+        }
+
+        function syncDataAcrossTabs(e) {
+            if (e.key === 'staired_chat_messages') {
+                chatMessages = JSON.parse(e.newValue) || [];
+                renderChatBox();
+            } else if (e.key === 'staired_pinned_messages') {
+                pinnedMessages = JSON.parse(e.newValue) || [];
+                renderPinnedMessages();
+            } else if (e.key === 'staired_forum_posts') {
+                forumPosts = JSON.parse(e.newValue) || [];
+                renderForumPosts();
+            } else if (e.key === 'staired_grade7_math_units') {
+                grade7MathUnits = JSON.parse(e.newValue) || defaultGrade7Math;
+                if (activeUnitIndex !== null) openUnitDetail(activeUnitIndex);
+            } else if (e.key === 'staired_student_questions') {
+                studentQuestions = JSON.parse(e.newValue) || [];
+                renderQuestionsList();
+            } else if (e.key === 'staired_registered_users') {
+                registeredUsers = JSON.parse(e.newValue) || [];
+                if (currentUser && currentUser.isAdmin) adminSearchUser();
+                renderToplist();
+            }
+        }
+
+        function saveDataDB() {
+            localStorage.setItem('staired_registered_users', JSON.stringify(registeredUsers));
+            localStorage.setItem('staired_chat_messages', JSON.stringify(chatMessages));
+            localStorage.setItem('staired_pinned_messages', JSON.stringify(pinnedMessages));
+            localStorage.setItem('staired_forum_posts', JSON.stringify(forumPosts));
+            localStorage.setItem('staired_grade7_math_units', JSON.stringify(grade7MathUnits));
+            localStorage.setItem('staired_student_questions', JSON.stringify(studentQuestions));
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            if (!toast) return;
+            toast.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+        }
+
+        function openAuthModal(tab) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            switchAuthTab(tab);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function togglePasswordVisibility(formType) {
+            if (formType === 'login') {
+                const isChecked = document.getElementById('login-show-pass').checked;
+                document.getElementById('login-input-pass').type = isChecked ? 'text' : 'password';
+            } else if (formType === 'register') {
+                const isChecked = document.getElementById('reg-show-pass').checked;
+                const targetType = isChecked ? 'text' : 'password';
+                document.getElementById('reg-pass').type = targetType;
+                document.getElementById('reg-pass-repeat').type = targetType;
+            }
+        }
+
+        function switchAuthTab(tab) {
+            const formLogin = document.getElementById('m-form-login');
+            const formRegister = document.getElementById('m-form-register');
+            const tabLogin = document.getElementById('m-tab-login');
+            const tabRegister = document.getElementById('m-tab-register');
+            
+            if (tab === 'login') {
+                formLogin.classList.remove('hidden');
+                formRegister.classList.add('hidden');
+                tabLogin.className = "w-1/2 py-2 text-center font-bold text-blue-400 border-b-2 border-blue-400 cursor-pointer";
+                tabRegister.className = "w-1/2 py-2 text-center font-bold text-gray-400 hover:text-white cursor-pointer";
+            } else {
+                formLogin.classList.add('hidden');
+                formRegister.classList.remove('hidden');
+                tabRegister.className = "w-1/2 py-2 text-center font-bold text-blue-400 border-b-2 border-blue-400 cursor-pointer";
+                tabLogin.className = "w-1/2 py-2 text-center font-bold text-gray-400 hover:text-white cursor-pointer";
+            }
+        }
+
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const school = document.getElementById('reg-school').value.trim();
+            const schoolNo = document.getElementById('reg-schoolno').value.trim();
+            const classBranch = document.getElementById('reg-class').value.trim();
+            const pass = document.getElementById('reg-pass').value;
+            const repeat = document.getElementById('reg-pass-repeat').value;
+            const errDiv = document.getElementById('pass-error');
+
+            if (pass !== repeat) { errDiv.innerText = "Şifreler eşleşmiyor!"; errDiv.classList.remove('hidden'); return; }
+            errDiv.classList.add('hidden');
+
+            if (registeredUsers.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                alert("Bu kullanıcı adı zaten alınmış!");
+                return;
+            }
+
+            const ppFile = document.getElementById('reg-pp-file').files[0];
+            let ppUrl = ppFile ? URL.createObjectURL(ppFile) : "https://via.placeholder.com/150";
+            
+            const isMyDeviceAdmin = (localStorage.getItem('staired_admin_secure_token') === MY_ADMIN_TOKEN && registeredUsers.length === 0);
+
+            currentUser = {
+                id: Date.now(),
+                name, username, email, phone, school, schoolNo, classBranch,
+                points: 100,
+                isAdmin: isMyDeviceAdmin,
+                isStudent: true,
+                isTeacher: false,
+                isOnline: true,
+                notes: [],
+                pp: ppUrl,
+                pass,
+                appearance: {
+                    accent: '#2563eb',
+                    bg: '#0f172a',
+                    text: '#f3f4f6',
+                    fontSize: '16'
+                }
+            };
+
+            registeredUsers.push(currentUser);
+            saveDataDB();
+            localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+            closeAuthModal();
+            activateUserSession();
+            showToast("Hesabınız başarıyla oluşturuldu!");
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const uInput = document.getElementById('login-input-user').value.trim();
+            const pInput = document.getElementById('login-input-pass').value.trim();
+            const errBox = document.getElementById('login-error');
+
+            const foundUser = registeredUsers.find(x => (x.email.toLowerCase() === uInput.toLowerCase() || x.username.toLowerCase() === uInput.toLowerCase()) && x.pass === pInput);
+
+            if (!foundUser) {
+                errBox.innerText = "Böyle bir hesap bulunamadı veya şifre hatalı! Lütfen önce hesap oluşturun.";
+                errBox.classList.remove('hidden');
+                return;
+            }
+
+            errBox.classList.add('hidden');
+            currentUser = foundUser;
+            currentUser.isOnline = true;
+            updateUserInDB();
+            localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+            closeAuthModal();
+            activateUserSession();
+            showToast("Giriş yapıldı!");
+        }
+
+        function updateRoleBadges() {
+            const badgeContainer = document.getElementById('user-role-badge');
+            const blueBadge = document.getElementById('user-blue-badge');
+            if (!badgeContainer) return;
+            badgeContainer.innerHTML = '';
+
+            if (currentUser.isAdmin || currentUser.isTeacher || currentUser.isStudent) {
+                blueBadge.classList.remove('hidden');
+            } else {
+                blueBadge.classList.add('hidden');
+            }
+
+            if (currentUser.isStudent) badgeContainer.innerHTML += `<span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow ml-1">[ÖĞRENCİ]</span>`;
+            if (currentUser.isTeacher) badgeContainer.innerHTML += `<span class="bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow ml-1">[ÖĞRETMEN]</span>`;
+            if (currentUser.isAdmin) badgeContainer.innerHTML += `<span class="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow ml-1">[ADMIN]</span>`;
+        }
+
+        function applyUserAppearance() {
+            const app = currentUser.appearance || { accent: '#2563eb', bg: '#0f172a', text: '#f3f4f6', fontSize: '16' };
+            document.documentElement.style.setProperty('--accent-color', app.accent);
+            document.documentElement.style.setProperty('--custom-bg', app.bg);
+            document.documentElement.style.setProperty('--custom-text', app.text);
+            document.documentElement.style.setProperty('--custom-font-size', app.fontSize + 'px');
+
+            const accEl = document.getElementById('set-accent-color');
+            const bgEl = document.getElementById('set-bg-color');
+            const txtEl = document.getElementById('set-text-color');
+            const fsEl = document.getElementById('set-font-size');
+            const fsLbl = document.getElementById('font-size-label');
+
+            if (accEl) accEl.value = app.accent;
+            if (bgEl) bgEl.value = app.bg;
+            if (txtEl) txtEl.value = app.text;
+            if (fsEl) fsEl.value = app.fontSize;
+            if (fsLbl) fsLbl.innerText = app.fontSize + 'px';
+        }
+
+        function previewAppearance() {
+            const accent = document.getElementById('set-accent-color').value;
+            const bg = document.getElementById('set-bg-color').value;
+            const text = document.getElementById('set-text-color').value;
+            const fontSize = document.getElementById('set-font-size').value;
+            document.getElementById('font-size-label').innerText = fontSize + 'px';
+
+            document.documentElement.style.setProperty('--accent-color', accent);
+            document.documentElement.style.setProperty('--custom-bg', bg);
+            document.documentElement.style.setProperty('--custom-text', text);
+            document.documentElement.style.setProperty('--custom-font-size', fontSize + 'px');
+        }
+
+        function saveAppearanceSettings() {
+            currentUser.appearance = {
+                accent: document.getElementById('set-accent-color').value,
+                bg: document.getElementById('set-bg-color').value,
+                text: document.getElementById('set-text-color').value,
+                fontSize: document.getElementById('set-font-size').value
+            };
+            updateUserInDB();
+            localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+            showToast("Kişisel görünüm ayarlarınız kaydedildi!");
+        }
+
+        function resetAppearanceSettings() {
+            currentUser.appearance = { accent: '#2563eb', bg: '#0f172a', text: '#f3f4f6', fontSize: '16' };
+            applyUserAppearance();
+            updateUserInDB();
+            localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+            showToast("Görünüm varsayılana sıfırlandı.");
+        }
+
+        function activateUserSession() {
+            document.getElementById('user-display-name').innerText = currentUser.name;
+            document.getElementById('user-points').innerText = currentUser.points;
+            document.getElementById('header-user-pp').src = currentUser.pp || "https://via.placeholder.com/150";
+            document.getElementById('profile-page-pp').src = currentUser.pp || "https://via.placeholder.com/150";
+            document.getElementById('profile-card-name').innerText = currentUser.name;
+            document.getElementById('profile-card-role').innerText = currentUser.isAdmin ? "Admin / Kurucu" : (currentUser.isTeacher ? "Öğretmen" : "Öğrenci");
+            
+            document.getElementById('prof-name').value = currentUser.name || '';
+            document.getElementById('prof-username').value = currentUser.username || '';
+            document.getElementById('prof-email').value = currentUser.email || '';
+            document.getElementById('prof-phone').value = currentUser.phone || '';
+            document.getElementById('prof-school').value = currentUser.school || '';
+            document.getElementById('prof-schoolno').value = currentUser.schoolNo || '';
+            document.getElementById('prof-class').value = currentUser.classBranch || '';
+
+            updateRoleBadges();
+            applyUserAppearance();
+
+            if (currentUser.isAdmin) {
+                document.getElementById('admin-menu-item').classList.remove('hidden');
+                document.getElementById('admin-forum-post-box').classList.remove('hidden');
+            } else {
+                document.getElementById('admin-menu-item').classList.add('hidden');
+                document.getElementById('admin-forum-post-box').classList.add('hidden');
+            }
+
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+            startClock();
+            renderNotes();
+            renderChatBox();
+        }
+
+        function logoutUser() {
+            if (currentUser) {
+                currentUser.isOnline = false;
+                updateUserInDB();
+            }
+            localStorage.removeItem('staired_current_user');
+            currentUser = null;
+            document.documentElement.style.setProperty('--custom-bg', '#0f172a');
+            document.documentElement.style.setProperty('--custom-text', '#f3f4f6');
+            document.documentElement.style.setProperty('--custom-font-size', '16px');
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            showToast("Oturum kapatıldı.");
+        }
+
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('-translate-x-full'); }
+
+        function showSection(id) {
+            ['dashboard', 'courses', 'ask', 'toplist', 'calculator', 'notes', 'settings', 'admin', 'about', 'forum', 'chat'].forEach(s => {
+                const el = document.getElementById('sec-' + s);
+                if (el) el.classList.add('hidden');
+            });
+            document.getElementById('sec-' + id).classList.remove('hidden');
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            if (id === 'admin') adminSearchUser();
+            if (id === 'forum') renderForumPosts();
+            if (id === 'chat') renderChatBox();
+            if (id === 'notes') renderNotes();
+            if (id === 'ask') renderQuestionsList();
+            if (id === 'toplist') renderToplist();
+        }
+
+        function openGrade7Math() {
+            showSection('courses');
+            activeUnitIndex = null;
+            document.getElementById('unit-detail-view').classList.add('hidden');
+            document.getElementById('units-list-view').classList.remove('hidden');
+            renderUnitsList();
+        }
+
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                const tEl = document.getElementById('current-time');
+                const dEl = document.getElementById('current-date');
+                if (tEl) tEl.innerText = now.toLocaleTimeString('tr-TR');
+                if (dEl) dEl.innerText = now.toLocaleDateString('tr-TR');
+            }, 1000);
+        }
+
+        function renderUnitsList() {
+            const container = document.getElementById('units-container');
+            container.innerHTML = '';
+            grade7MathUnits.forEach((u, index) => {
+                const totalCount = (u.tests ? u.tests.length : 0) + (u.files ? u.files.length : 0);
+                const btn = document.createElement('button');
+                btn.type = "button";
+                btn.onclick = () => openUnitDetail(index);
+                btn.className = "w-full text-left bg-slate-950 border border-slate-800 hover:border-blue-500 p-4 rounded-xl flex justify-between items-center text-white font-bold cursor-pointer transition";
+                btn.innerHTML = `
+                    <span><i class="fas fa-book-open text-blue-400 mr-2"></i> 7. Sınıf Matematik — ${u.name}</span>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-[11px] bg-slate-900 border border-slate-700 text-gray-300 px-2.5 py-0.5 rounded-full">${totalCount} İçerik</span>
+                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
+                    </div>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function openUnitDetail(index) {
+            activeUnitIndex = index;
+            const unit = grade7MathUnits[index];
+            if (!unit.tests) unit.tests = [];
+            if (!unit.files) unit.files = [];
+
+            document.getElementById('units-list-view').classList.add('hidden');
+            document.getElementById('unit-detail-view').classList.remove('hidden');
+            document.getElementById('unit-detail-title').innerText = `7. Sınıf Matematik — ${unit.name}`;
+
+            const testBox = document.getElementById('test-content-box');
+            let testListHtml = '';
+            if (unit.tests.length > 0) {
+                unit.tests.forEach((t, tIdx) => {
+                    const delBtn = currentUser.isAdmin ? `<button type="button" onclick="deleteUnitItem('tests', ${tIdx})" class="text-red-400 hover:text-red-300 text-xs ml-2 cursor-pointer" title="Sil"><i class="fas fa-trash"></i></button>` : '';
+                    testListHtml += `
+                        <div class="flex items-center justify-between bg-slate-950 border border-slate-800 p-2.5 rounded-lg">
+                            <span class="text-xs font-bold text-blue-300 truncate pr-2"><i class="fas fa-file-pdf mr-1.5 text-blue-400"></i>${t.customName}</span>
+                            <div class="flex items-center shrink-0">
+                                <a href="${t.url}" download="${t.downloadName}" class="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold px-3 py-1 rounded shadow inline-flex items-center">
+                                    <i class="fas fa-download mr-1"></i> İndir
+                                </a>
+                                ${delBtn}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                testListHtml = `<span class="text-red-400 font-bold text-xs bg-red-950/40 border border-red-800 px-3 py-2 rounded block text-center">HENÜZ TEST EKLENMEDİ</span>`;
+            }
+
+            let adminTestUpload = currentUser.isAdmin ? `
+                <div class="mt-3 border-t border-slate-800 pt-3 space-y-2 bg-slate-950/60 p-3 rounded-lg">
+                    <p class="text-[11px] font-bold text-amber-400"><i class="fas fa-plus-circle mr-1"></i> Çoklu Test Ekle & Özel Ad Belirle:</p>
+                    <input type="text" id="custom-test-name-input" placeholder="Sitede görünecek ad (Örn: 1. Ünite Kazanım Testi)" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-blue-500">
+                    <label class="w-full text-center bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-3 py-2 rounded cursor-pointer block">
+                        <i class="fas fa-upload mr-1"></i> Birden Fazla Test Seç ve Yükle
+                        <input type="file" multiple class="hidden" onchange="uploadMultipleUnitItems(event, 'tests')">
+                    </label>
+                </div>` : '';
+
+            testBox.innerHTML = testListHtml + adminTestUpload;
+
+            const presBox = document.getElementById('presentation-content-box');
+            let fileListHtml = '';
+            if (unit.files.length > 0) {
+                unit.files.forEach((f, fIdx) => {
+                    const delBtn = currentUser.isAdmin ? `<button type="button" onclick="deleteUnitItem('files', ${fIdx})" class="text-red-400 hover:text-red-300 text-xs ml-2 cursor-pointer" title="Sil"><i class="fas fa-trash"></i></button>` : '';
+                    fileListHtml += `
+                        <div class="flex items-center justify-between bg-slate-950 border border-slate-800 p-2.5 rounded-lg">
+                            <span class="text-xs font-bold text-emerald-300 truncate pr-2"><i class="fas fa-file-powerpoint mr-1.5 text-emerald-400"></i>${f.customName}</span>
+                            <div class="flex items-center shrink-0">
+                                <a href="${f.url}" download="${f.downloadName}" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold px-3 py-1 rounded shadow inline-flex items-center">
+                                    <i class="fas fa-download mr-1"></i> İndir
+                                </a>
+                                ${delBtn}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                fileListHtml = `<span class="text-red-400 font-bold text-xs bg-red-950/40 border border-red-800 px-3 py-2 rounded block text-center">HENÜZ SUNUM / DOSYA EKLENMEDİ</span>`;
+            }
+
+            let adminFileUpload = currentUser.isAdmin ? `
+                <div class="mt-3 border-t border-slate-800 pt-3 space-y-2 bg-slate-950/60 p-3 rounded-lg">
+                    <p class="text-[11px] font-bold text-amber-400"><i class="fas fa-plus-circle mr-1"></i> Çoklu Sunum / Dosya Ekle & Özel Ad Belirle:</p>
+                    <input type="text" id="custom-file-name-input" placeholder="Sitede görünecek ad (Örn: Konu Anlatım Sunumu)" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <label class="w-full text-center bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-3 py-2 rounded cursor-pointer block">
+                        <i class="fas fa-upload mr-1"></i> Birden Fazla Sunum / Dosya Seç ve Yükle
+                        <input type="file" multiple class="hidden" onchange="uploadMultipleUnitItems(event, 'files')">
+                    </label>
+                </div>` : '';
+
+            presBox.innerHTML = fileListHtml + adminFileUpload;
+        }
+
+        function uploadMultipleUnitItems(e, listType) {
+            const files = Array.from(e.target.files);
+            if (!files.length) return;
+
+            const nameInputId = listType === 'tests' ? 'custom-test-name-input' : 'custom-file-name-input';
+            const baseCustomName = document.getElementById(nameInputId).value.trim();
+
+            let loadedCount = 0;
+            files.forEach((file, idx) => {
+                const ext = file.name.includes('.') ? file.name.substring(file.name.lastIndexOf('.')) : '';
+                let displayTitle = baseCustomName
+                    ? (files.length > 1 ? `${baseCustomName} (${idx + 1})` : baseCustomName)
+                    : file.name;
+                const safeDownloadName = displayTitle.endsWith(ext) ? displayTitle : `${displayTitle}${ext}`;
+
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    grade7MathUnits[activeUnitIndex][listType].push({
+                        customName: displayTitle,
+                        downloadName: safeDownloadName,
+                        url: evt.target.result
+                    });
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        saveDataDB();
+                        openUnitDetail(activeUnitIndex);
+                        renderUnitsList();
+                        showToast(`${files.length} dosya başarıyla eklendi!`);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function deleteUnitItem(listType, itemIdx) {
+            grade7MathUnits[activeUnitIndex][listType].splice(itemIdx, 1);
+            saveDataDB();
+            openUnitDetail(activeUnitIndex);
+            renderUnitsList();
+            showToast("İçerik silindi.");
+        }
+
+        function backToUnits() {
+            activeUnitIndex = null;
+            document.getElementById('unit-detail-view').classList.add('hidden');
+            document.getElementById('units-list-view').classList.remove('hidden');
+        }
+
+        function submitStudentQuestion() {
+            const unitName = document.getElementById('ask-unit-select').value;
+            const text = document.getElementById('ask-question-text').value.trim();
+            const photoFile = document.getElementById('ask-photo-input').files[0];
+
+            if (!text && !photoFile) {
+                alert("Lütfen sorunuzu yazın veya bir soru fotoğrafı seçin.");
+                return;
+            }
+
+            if (photoFile) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    pushStudentQuestion(unitName, text, evt.target.result);
+                };
+                reader.readAsDataURL(photoFile);
+            } else {
+                pushStudentQuestion(unitName, text, null);
+            }
+        }
+
+        function pushStudentQuestion(unitName, text, photoUrl) {
+            studentQuestions.unshift({
+                id: Date.now(),
+                sender: currentUser.name,
+                senderClass: currentUser.classBranch || '7. Sınıf',
+                unit: unitName,
+                text,
+                photoUrl,
+                time: new Date().toLocaleString('tr-TR'),
+                replies: []
+            });
+            saveDataDB();
+            renderQuestionsList();
+            document.getElementById('ask-question-text').value = '';
+            document.getElementById('ask-photo-input').value = '';
+            showToast("Sorunuz gönderildi ve listeye eklendi!");
+        }
+
+        function renderQuestionsList() {
+            const container = document.getElementById('questions-list-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (studentQuestions.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 text-center py-6 bg-slate-950 border border-slate-800 rounded-xl">Henüz gönderilmiş soru yok. İlk soruyu yukarıdan sorabilirsin!</p>`;
+                return;
+            }
+
+            studentQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-950 border border-slate-800 p-5 rounded-xl shadow-lg space-y-3";
+
+                let photoHtml = q.photoUrl ? `
+                    <div class="mt-2">
+                        <a href="${q.photoUrl}" target="_blank" title="Tam boyut aç">
+                            <img src="${q.photoUrl}" alt="Soru Fotoğrafı" class="max-h-72 rounded-lg border border-slate-700 object-contain bg-slate-900 p-1">
+                        </a>
+                    </div>` : '';
+
+                let repliesHtml = '';
+                if (q.replies && q.replies.length > 0) {
+                    q.replies.forEach(r => {
+                        repliesHtml += `
+                            <div class="bg-emerald-950/40 border border-emerald-800/70 p-3 rounded-lg text-xs space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">ADMIN ÇÖZÜMÜ</span>
+                                    <strong class="text-emerald-300">${r.adminName}</strong>
+                                    <span class="text-gray-500 text-[10px]">${r.time}</span>
+                                </div>
+                                <p class="text-gray-200 whitespace-pre-line">${r.text}</p>
+                            </div>
+                        `;
+                    });
+                }
+
+                let adminReplyBox = (currentUser && currentUser.isAdmin) ? `
+                    <div class="pt-2 border-t border-slate-800 flex space-x-2">
+                        <input type="text" id="reply-input-${q.id}" placeholder="Bu soruya çözüm veya cevap yaz..." class="flex-grow bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                        <button type="button" onclick="replyToQuestion(${q.id})" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-lg cursor-pointer">Cevapla</button>
+                        <button type="button" onclick="deleteQuestion(${q.id})" class="bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer" title="Soruyu Sil"><i class="fas fa-trash"></i></button>
+                    </div>` : '';
+
+                card.innerHTML = `
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-amber-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded">#${studentQuestions.length - idx}</span>
+                            <span class="font-bold text-white text-sm">${q.sender}</span>
+                            <span class="text-[11px] bg-slate-900 border border-slate-700 text-blue-300 px-2 py-0.5 rounded">${q.unit}</span>
+                        </div>
+                        <span class="text-[11px] text-gray-500">${q.time}</span>
+                    </div>
+                    ${q.text ? `<p class="text-sm text-gray-200 whitespace-pre-line">${q.text}</p>` : ''}
+                    ${photoHtml}
+                    <div class="space-y-2">${repliesHtml}</div>
+                    ${adminReplyBox}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function replyToQuestion(qId) {
+            const input = document.getElementById(`reply-input-${qId}`);
+            const txt = input ? input.value.trim() : '';
+            if (!txt) return;
+            const q = studentQuestions.find(item => item.id === qId);
+            if (q) {
+                if (!q.replies) q.replies = [];
+                q.replies.push({
+                    adminName: currentUser.name,
+                    text: txt,
+                    time: new Date().toLocaleTimeString('tr-TR')
+                });
+                saveDataDB();
+                renderQuestionsList();
+                showToast("Çözüm cevabı eklendi!");
+            }
+        }
+
+        function deleteQuestion(qId) {
+            studentQuestions = studentQuestions.filter(item => item.id !== qId);
+            saveDataDB();
+            renderQuestionsList();
+            showToast("Soru silindi.");
+        }
+
+        function renderToplist() {
+            const container = document.getElementById('toplist-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (registeredUsers.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Henüz kayıtlı kullanıcı bulunmuyor.</p>`;
+                return;
+            }
+
+            const ranked = [...registeredUsers].sort((a, b) => (b.points || 0) - (a.points || 0));
+            ranked.forEach((u, index) => {
+                let medal = `<span class="text-gray-400 font-bold w-6 text-center">${index + 1}.</span>`;
+                if (index === 0) medal = `<span class="text-yellow-400 font-extrabold w-6 text-center">🥇</span>`;
+                else if (index === 1) medal = `<span class="text-gray-300 font-extrabold w-6 text-center">🥈</span>`;
+                else if (index === 2) medal = `<span class="text-amber-600 font-extrabold w-6 text-center">🥉</span>`;
+
+                const row = document.createElement('div');
+                row.className = "flex items-center justify-between bg-slate-900 border border-slate-800 p-3 rounded-xl";
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        ${medal}
+                        <img src="${u.pp || 'https://via.placeholder.com/150'}" class="w-8 h-8 rounded-full object-cover border border-slate-700">
+                        <div>
+                            <div class="text-sm font-bold text-white">${u.name} <span class="text-xs text-gray-400 font-normal">(@${u.username})</span></div>
+                            <div class="text-[11px] text-gray-400">Sınıf: ${u.classBranch || '-'}</div>
+                        </div>
+                    </div>
+                    <div class="text-yellow-400 font-extrabold text-sm">
+                        <i class="fas fa-star mr-1"></i>${u.points || 0} Puan
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function toggleForumPollBuilder() {
+            const checked = document.getElementById('forum-enable-poll').checked;
+            const builder = document.getElementById('forum-poll-builder');
+            if (checked) builder.classList.remove('hidden');
+            else builder.classList.add('hidden');
+        }
+
+        function postForumMessage() {
+            if (!currentUser.isAdmin) return;
+            const txt = document.getElementById('forum-input-text').value.trim();
+            const fileInput = document.getElementById('forum-file-input');
+            const file = fileInput.files[0];
+
+            const enablePoll = document.getElementById('forum-enable-poll').checked;
+            let pollData = null;
+            if (enablePoll) {
+                const qText = document.getElementById('poll-question-input').value.trim();
+                const optsRaw = document.getElementById('poll-options-input').value.trim();
+                const opts = optsRaw.split(',').map(s => s.trim()).filter(Boolean);
+                if (!qText || opts.length < 2) {
+                    alert("Anket için bir soru ve en az 2 şık (virgülle ayırarak) yazmalısın.");
+                    return;
+                }
+                pollData = {
+                    question: qText,
+                    options: opts.map(label => ({ label, voters: [] }))
+                };
+            }
+
+            if (!txt && !file && !pollData) return;
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) { pushForumPost(txt, evt.target.result, file.name, pollData); };
+                reader.readAsDataURL(file);
+            } else {
+                pushForumPost(txt, null, null, pollData);
+            }
+        }
+
+        function pushForumPost(text, fileUrl, fileName, poll) {
+            const post = { id: Date.now(), author: currentUser.name, text, fileUrl, fileName, poll, time: new Date().toLocaleTimeString('tr-TR') };
+            forumPosts.unshift(post);
+            saveDataDB();
+            renderForumPosts();
+            document.getElementById('forum-input-text').value = '';
+            document.getElementById('forum-file-input').value = '';
+            document.getElementById('forum-enable-poll').checked = false;
+            document.getElementById('poll-question-input').value = '';
+            document.getElementById('poll-options-input').value = '';
+            toggleForumPollBuilder();
+            showToast("Gönderi yayınlandı!");
+        }
+
+        function voteOnPoll(postId, optionIdx) {
+            const post = forumPosts.find(p => p.id === postId);
+            if (!post || !post.poll) return;
+
+            post.poll.options.forEach(opt => {
+                opt.voters = opt.voters.filter(v => v.userId !== currentUser.id);
+            });
+            post.poll.options[optionIdx].voters.push({
+                userId: currentUser.id,
+                name: currentUser.name
+            });
+
+            saveDataDB();
+            renderForumPosts();
+            showToast("Oyunuz kaydedildi!");
+        }
+
+        function renderForumPosts() {
+            const box = document.getElementById('forum-posts');
+            box.innerHTML = '';
+            if (forumPosts.length === 0) { box.innerHTML = `<p class="text-xs text-gray-500 text-center py-4">Henüz duyuru veya anket yok.</p>`; return; }
+            
+            forumPosts.forEach(p => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-950 border border-slate-800 p-4 rounded-xl shadow space-y-3";
+                let fileHtml = p.fileUrl ? `<div class="mt-2"><a href="${p.fileUrl}" download="${p.fileName}" class="text-xs text-blue-400 underline"><i class="fas fa-paperclip mr-1"></i>${p.fileName} İndir</a></div>` : '';
+
+                let pollHtml = '';
+                if (p.poll) {
+                    const totalVotes = p.poll.options.reduce((sum, o) => sum + o.voters.length, 0);
+                    let optionsHtml = '';
+                    p.poll.options.forEach((opt, oIdx) => {
+                        const pct = totalVotes > 0 ? Math.round((opt.voters.length / totalVotes) * 100) : 0;
+                        const iVoted = currentUser && opt.voters.some(v => v.userId === currentUser.id);
+                        const votersNames = (currentUser && currentUser.isAdmin && opt.voters.length > 0)
+                            ? `<div class="text-[10px] text-amber-300 mt-1"><i class="fas fa-eye mr-1"></i>Seçenler: ${opt.voters.map(v => v.name).join(', ')}</div>`
+                            : '';
+
+                        optionsHtml += `
+                            <div onclick="voteOnPoll(${p.id}, ${oIdx})" class="bg-slate-900 border ${iVoted ? 'border-amber-500' : 'border-slate-700'} hover:border-blue-500 p-2.5 rounded-lg cursor-pointer transition">
+                                <div class="flex justify-between text-xs font-bold mb-1">
+                                    <span class="text-white">${iVoted ? '✅ ' : ''}${opt.label}</span>
+                                    <span class="text-blue-400">${opt.voters.length} oy (%${pct})</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                                    <div class="bg-blue-500 h-full" style="width: ${pct}%"></div>
+                                </div>
+                                ${votersNames}
+                            </div>
+                        `;
+                    });
+
+                    pollHtml = `
+                        <div class="bg-slate-900/60 border border-slate-800 p-3 rounded-xl space-y-2">
+                            <div class="text-xs font-extrabold text-amber-400"><i class="fas fa-poll mr-1"></i> ANKET: ${p.poll.question}</div>
+                            <div class="space-y-2">${optionsHtml}</div>
+                            <div class="text-[10px] text-gray-500 text-right">Toplam Oy: ${totalVotes}</div>
+                        </div>
+                    `;
+                }
+
+                div.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">ADMIN DUYURUSU</span>
+                        <span class="font-bold text-white text-sm">${p.author}</span>
+                        <span class="text-xs text-gray-500">${p.time}</span>
+                    </div>
+                    ${p.text ? `<p class="text-gray-300 text-sm whitespace-pre-line">${p.text}</p>` : ''}
+                    ${pollHtml}
+                    ${fileHtml}
+                `;
+                box.appendChild(div);
+            });
+        }
+
+        function setupEnterKeyChat() {
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.addEventListener('keydown', e => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        sendChatMessage();
+                    }
+                });
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const fileInput = document.getElementById('chat-file-input');
+            const onlyAdmins = document.getElementById('chat-only-admins').checked;
+            const txt = input.value.trim();
+            const file = fileInput.files[0];
+
+            if (!txt && !file) return;
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    pushChatMessage(txt, onlyAdmins, evt.target.result, file.name);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                pushChatMessage(txt, onlyAdmins, null, null);
+            }
+        }
+
+        function pushChatMessage(txt, onlyAdmins, fileUrl, fileName) {
+            const msg = { 
+                id: Date.now(), 
+                sender: currentUser.name, 
+                userId: currentUser.id, 
+                isAdmin: currentUser.isAdmin, 
+                onlyAdmins: onlyAdmins,
+                text: txt, 
+                fileUrl: fileUrl,
+                fileName: fileName,
+                time: new Date().toLocaleTimeString('tr-TR') 
+            };
+            
+            chatMessages.push(msg);
+            saveDataDB();
+            renderChatBox();
+            document.getElementById('chat-input').value = '';
+            document.getElementById('chat-file-input').value = '';
+            if (onlyAdmins) showToast("Mesajınız ve dosyanız sadece adminlere gönderildi!");
+        }
+
+        function renderChatBox() {
+            const box = document.getElementById('chat-box');
+            if (!box) return;
+            box.innerHTML = '';
+            
+            const visibleMessages = chatMessages.filter(m => {
+                if (!m.onlyAdmins) return true;
+                if (!currentUser) return false;
+                return currentUser.isAdmin || m.userId === currentUser.id;
+            });
+
+            if (visibleMessages.length === 0) {
+                box.innerHTML = `<p class="text-xs text-gray-500 text-center my-auto">Henüz mesaj yok. İlk mesajı sen yaz!</p>`;
+            }
+
+            visibleMessages.forEach(m => {
+                const isMine = (currentUser && m.userId === currentUser.id);
+                const div = document.createElement('div');
+                div.className = `p-3 rounded-xl max-w-xs md:max-w-md ${m.onlyAdmins ? 'bg-red-950/50 border border-red-700' : (isMine ? 'bg-blue-900/60 border border-blue-700' : 'bg-slate-900 border border-slate-800')} ${isMine ? 'self-end text-right' : 'self-start text-left'}`;
+                
+                let adminTag = m.isAdmin ? `<span class="bg-red-600 text-white text-[9px] font-bold px-1 rounded ml-1">ADMIN</span>` : '';
+                let privateTag = m.onlyAdmins ? `<span class="bg-amber-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded ml-1"><i class="fas fa-lock mr-0.5"></i>SADECE ADMİNLERE</span>` : '';
+                
+                let fileAttachHtml = m.fileUrl ? `
+                    <div class="mt-2">
+                        <a href="${m.fileUrl}" download="${m.fileName}" class="inline-flex items-center bg-slate-950/90 border border-slate-700 hover:border-blue-400 text-blue-300 text-xs px-3 py-1.5 rounded-lg">
+                            <i class="fas fa-file-download mr-1.5"></i> ${m.fileName}
+                        </a>
+                    </div>` : '';
+
+                let adminActions = '';
+                if (currentUser && currentUser.isAdmin) {
+                    adminActions = `
+                        <div class="flex items-center space-x-2 mt-1 ${isMine ? 'justify-end' : 'justify-start'}">
+                            ${!m.onlyAdmins ? `<button type="button" onclick="togglePinMessage(${m.id})" class="text-[10px] text-yellow-400 hover:text-white cursor-pointer"><i class="fas fa-thumbtack"></i> Sabitle</button>` : ''}
+                            <button type="button" onclick="editChatMessage(${m.id})" class="text-[10px] text-blue-400 hover:text-white cursor-pointer"><i class="fas fa-edit"></i> Düzenle</button>
+                            <button type="button" onclick="deleteChatMessage(${m.id})" class="text-[10px] text-red-400 hover:text-white cursor-pointer"><i class="fas fa-trash"></i> Sil</button>
+                        </div>`;
+                }
+
+                div.innerHTML = `
+                    <div>
+                        <span class="text-xs font-bold ${isMine ? 'text-amber-300' : 'text-blue-400'} block">${m.sender} ${adminTag} ${privateTag}</span>
+                        ${m.text ? `<span class="text-sm text-gray-200 break-words">${m.text}</span>` : ''}
+                        ${fileAttachHtml}
+                    </div>
+                    ${adminActions}
+                `;
+                box.appendChild(div);
+            });
+            box.scrollTop = box.scrollHeight;
+            renderPinnedMessages();
+        }
+
+        function togglePinMessage(id) {
+            const msg = chatMessages.find(m => m.id === id);
+            if (!msg) return;
+            const index = pinnedMessages.findIndex(p => p.id === id);
+            if (index > -1) {
+                pinnedMessages.splice(index, 1);
+                showToast("Mesaj sabitten kaldırıldı.");
+            } else {
+                pinnedMessages.push(msg);
+                showToast("Mesaj başa sabitlendi.");
+            }
+            saveDataDB();
+            renderPinnedMessages();
+        }
+
+        function renderPinnedMessages() {
+            const container = document.getElementById('pinned-messages-container');
+            if (!container) return;
+            container.innerHTML = '';
+            pinnedMessages.forEach(p => {
+                const div = document.createElement('div');
+                div.className = "bg-blue-900/80 border border-blue-700 text-white p-3 rounded-xl shadow-lg flex items-center justify-between";
+                div.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-thumbtack text-yellow-400"></i>
+                        <span class="font-bold text-xs uppercase">Sabitlenen:</span>
+                        <span class="text-sm italic">"${p.text}" (${p.sender})</span>
+                    </div>
+                    ${currentUser && currentUser.isAdmin ? `<button type="button" onclick="togglePinMessage(${p.id})" class="text-xs text-red-300 hover:text-white cursor-pointer"><i class="fas fa-times"></i></button>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function deleteChatMessage(id) {
+            chatMessages = chatMessages.filter(m => m.id !== id);
+            pinnedMessages = pinnedMessages.filter(p => p.id !== id);
+            saveDataDB();
+            renderChatBox();
+            showToast("Mesaj silindi.");
+        }
+
+        function editChatMessage(id) {
+            const msg = chatMessages.find(m => m.id === id);
+            if (!msg) return;
+            const newText = prompt("Mesajı düzenleyin:", msg.text);
+            if (newText !== null && newText.trim() !== "") {
+                msg.text = newText.trim();
+                saveDataDB();
+                renderChatBox();
+                showToast("Mesaj güncellendi.");
+            }
+        }
+
+        function calcAppend(val) { document.getElementById('calc-screen').value += val; }
+        function calcClear() { document.getElementById('calc-screen').value = ''; }
+        function calcSolve() {
+            try { document.getElementById('calc-screen').value = eval(document.getElementById('calc-screen').value); } 
+            catch { document.getElementById('calc-screen').value = 'Hata'; }
+        }
+
+        function setupKeyboardCalculator() {
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('sec-calculator').classList.contains('hidden')) return;
+                const key = e.key;
+                if (!isNaN(key) || ['+', '-', '*', '/', '.', '(', ')'].includes(key)) {
+                    calcAppend(key);
+                } else if (key === 'Enter') {
+                    e.preventDefault();
+                    calcSolve();
+                } else if (key === 'Backspace') {
+                    let scr = document.getElementById('calc-screen');
+                    scr.value = scr.value.slice(0, -1);
+                } else if (key.toLowerCase() === 'c') {
+                    calcClear();
+                }
+            });
+        }
+
+        function insertEmoji(emoji) {
+            const textarea = document.getElementById('note-input');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            textarea.value = text.substring(0, start) + emoji + text.substring(end);
+            textarea.focus();
+            textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+        }
+
+        function saveNote() {
+            const editId = document.getElementById('note-edit-id').value;
+            const title = document.getElementById('note-title').value.trim();
+            const text = document.getElementById('note-input').value.trim();
+            const color = document.getElementById('note-color').value;
+
+            if (!title && !text) { alert("Lütfen not başlığı veya içeriği girin."); return; }
+            if (!currentUser.notes) currentUser.notes = [];
+
+            if (editId) {
+                const note = currentUser.notes.find(n => n.id == editId);
+                if (note) {
+                    note.title = title || 'Başlıksız Not';
+                    note.text = text;
+                    note.color = color;
+                }
+                document.getElementById('note-edit-id').value = '';
+                document.getElementById('note-save-btn').innerText = "Notu Kaydet";
+            } else {
+                currentUser.notes.push({ id: Date.now(), title: title || 'Başlıksız Not', text, color });
+            }
+
+            updateUserInDB();
+            renderNotes();
+            document.getElementById('note-title').value = '';
+            document.getElementById('note-input').value = '';
+            showToast("Not başarıyla kaydedildi!");
+        }
+
+        function renderNotes() {
+            const list = document.getElementById('notes-list');
+            list.innerHTML = '';
+            if (!currentUser.notes || currentUser.notes.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-500 col-span-2 text-center py-6">Henüz kayıtlı notunuz yok.</p>`;
+                return;
+            }
+
+            currentUser.notes.forEach(n => {
+                let bgClass = "bg-yellow-500/20 border-yellow-400/60";
+                let titleColor = "text-yellow-300";
+                if (n.color === 'blue') {
+                    bgClass = "bg-blue-950/50 border-blue-500/60";
+                    titleColor = "text-blue-300";
+                } else if (n.color === 'emerald') {
+                    bgClass = "bg-emerald-950/50 border-emerald-500/60";
+                    titleColor = "text-emerald-300";
+                } else if (n.color === 'purple') {
+                    bgClass = "bg-purple-950/50 border-purple-500/60";
+                    titleColor = "text-purple-300";
+                }
+
+                const card = document.createElement('div');
+                card.className = `${bgClass} border p-4 rounded-xl shadow-md text-gray-100 space-y-2 flex flex-col justify-between`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center border-b border-slate-700/70 pb-2 mb-2">
+                            <h4 class="font-bold ${titleColor} text-sm">${n.title}</h4>
+                            <div class="space-x-1">
+                                <button type="button" onclick="editNote(${n.id})" class="bg-blue-600 hover:bg-blue-500 text-white text-[11px] px-2 py-1 rounded cursor-pointer font-semibold"><i class="fas fa-edit mr-1"></i>Düzenle</button>
+                                <button type="button" onclick="deleteNote(${n.id})" class="bg-red-600 hover:bg-red-500 text-white text-[11px] px-2 py-1 rounded cursor-pointer font-semibold"><i class="fas fa-trash mr-1"></i>Sil</button>
+                            </div>
+                        </div>
+                        <div class="text-xs whitespace-pre-line text-gray-100 lined-paper min-h-[84px] px-1">${n.text}</div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function editNote(id) {
+            const note = currentUser.notes.find(n => n.id === id);
+            if (!note) return;
+            document.getElementById('note-edit-id').value = note.id;
+            document.getElementById('note-title').value = note.title;
+            document.getElementById('note-input').value = note.text;
+            document.getElementById('note-color').value = note.color || 'yellow';
+            document.getElementById('note-save-btn').innerText = "Notu Güncelle";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function deleteNote(id) {
+            currentUser.notes = currentUser.notes.filter(n => n.id !== id);
+            updateUserInDB();
+            renderNotes();
+            showToast("Not silindi.");
+        }
+
+        function saveDetailedProfile() {
+            const newName = document.getElementById('prof-name').value.trim();
+            const newUsername = document.getElementById('prof-username').value.trim();
+            const newEmail = document.getElementById('prof-email').value.trim();
+            const newPhone = document.getElementById('prof-phone').value.trim();
+            const newSchool = document.getElementById('prof-school').value.trim();
+            const newSchoolNo = document.getElementById('prof-schoolno').value.trim();
+            const newClass = document.getElementById('prof-class').value.trim();
+            const newPass = document.getElementById('prof-pass').value;
+
+            if (!newName || !newUsername) {
+                alert("Ad Soyad ve Kullanıcı Adı boş bırakılamaz!");
+                return;
+            }
+
+            const isTaken = registeredUsers.some(u => u.id !== currentUser.id && u.username.toLowerCase() === newUsername.toLowerCase());
+            if (isTaken) {
+                alert("Bu kullanıcı adı başka bir kullanıcı tarafından kullanılıyor!");
+                return;
+            }
+
+            currentUser.name = newName;
+            currentUser.username = newUsername;
+            currentUser.email = newEmail;
+            currentUser.phone = newPhone;
+            currentUser.school = newSchool;
+            currentUser.schoolNo = newSchoolNo;
+            currentUser.classBranch = newClass;
+            if (newPass) {
+                currentUser.pass = newPass;
+                document.getElementById('prof-pass').value = '';
+            }
+
+            updateUserInDB();
+            localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+            activateUserSession();
+            showToast("Bilgileriniz başarıyla güncellendi!");
+        }
+
+        function updateUserProfilePic(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                currentUser.pp = evt.target.result;
+                updateUserInDB();
+                localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+                document.getElementById('header-user-pp').src = currentUser.pp;
+                document.getElementById('profile-page-pp').src = currentUser.pp;
+                showToast("Profil fotoğrafınız güncellendi!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateUserInDB() {
+            const idx = registeredUsers.findIndex(u => u.id === currentUser.id);
+            if (idx > -1) {
+                registeredUsers[idx] = currentUser;
+            } else {
+                registeredUsers.push(currentUser);
+            }
+            saveDataDB();
+        }
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            ['all', 'students', 'teachers', 'admins'].forEach(t => {
+                const btn = document.getElementById(`adm-tab-${t}`);
+                if (btn) {
+                    if (t === tab) btn.className = "bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer";
+                    else btn.className = "bg-slate-800 text-gray-300 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer";
+                }
+            });
+            adminSearchUser();
+        }
+
+        function getFilteredAdminUsers() {
+            const searchInput = document.getElementById('admin-search-input');
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            let sortedUsers = [...registeredUsers].sort((a, b) => a.name.localeCompare(b.name, 'tr'));
+
+            let filtered = sortedUsers.filter(u => 
+                u.username.toLowerCase().includes(query) || 
+                u.name.toLowerCase().includes(query) ||
+                (u.phone && u.phone.toLowerCase().includes(query)) ||
+                (u.schoolNo && u.schoolNo.toLowerCase().includes(query)) ||
+                (u.email && u.email.toLowerCase().includes(query))
+            );
+
+            if (currentAdminTab === 'students') filtered = filtered.filter(u => u.isStudent);
+            else if (currentAdminTab === 'teachers') filtered = filtered.filter(u => u.isTeacher);
+            else if (currentAdminTab === 'admins') filtered = filtered.filter(u => u.isAdmin);
+
+            return filtered;
+        }
+
+        function toggleAdminSelectAll(checked) {
+            const filtered = getFilteredAdminUsers();
+            if (checked) {
+                filtered.forEach(u => selectedAdminUserIds.add(u.id));
+            } else {
+                filtered.forEach(u => selectedAdminUserIds.delete(u.id));
+            }
+            adminSearchUser();
+        }
+
+        function toggleSingleAdminSelect(userId, checked) {
+            if (checked) selectedAdminUserIds.add(userId);
+            else selectedAdminUserIds.delete(userId);
+            updateAdminBottomCounter();
+        }
+
+        function updateAdminBottomCounter() {
+            const counterEl = document.getElementById('admin-bottom-counter');
+            if (!counterEl) return;
+            const totalAccounts = registeredUsers.length;
+            const catalogFilteredCount = getFilteredAdminUsers().length;
+            const tabLabels = { all: 'Tümü', students: 'Öğrenciler', teachers: 'Öğretmenler', admins: 'Adminler' };
+
+            let catalogText = currentAdminTab !== 'all'
+                ? ` | ${tabLabels[currentAdminTab]} Kataloğu: <strong class="text-blue-400">${catalogFilteredCount}</strong>`
+                : '';
+            let selectedText = selectedAdminUserIds.size > 0
+                ? ` | Seçili: <strong class="text-amber-400">${selectedAdminUserIds.size}</strong>`
+                : '';
+
+            counterEl.innerHTML = `Hesap Sayısı: <strong class="text-white">${totalAccounts}</strong>${catalogText}${selectedText}`;
+        }
+
+        function adminSearchUser() {
+            const results = document.getElementById('admin-search-results');
+            if (!results) return;
+            results.innerHTML = '';
+
+            const filtered = getFilteredAdminUsers();
+            updateAdminBottomCounter();
+
+            const selectAllCb = document.getElementById('admin-select-all-checkbox');
+            if (selectAllCb) {
+                selectAllCb.checked = filtered.length > 0 && filtered.every(u => selectedAdminUserIds.has(u.id));
+            }
+
+            if (filtered.length === 0) {
+                results.innerHTML = `<p class="text-xs text-gray-400">Kayıtlı kullanıcı bulunamadı.</p>`;
+                return;
+            }
+
+            filtered.forEach(u => {
+                const box = document.createElement('div');
+                const isChecked = selectedAdminUserIds.has(u.id);
+                box.className = `bg-slate-900 border ${isChecked ? 'border-amber-500' : 'border-slate-800'} p-4 rounded-xl flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0`;
+
+                let badges = '';
+                if (u.isStudent) badges += `<span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded ml-1">[ÖĞRENCİ]</span>`;
+                if (u.isTeacher) badges += `<span class="bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded ml-1">[ÖĞRETMEN]</span>`;
+                if (u.isAdmin) badges += `<span class="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded ml-1">[ADMIN]</span>`;
+
+                let onlineStatusHtml = u.isOnline ? `<span class="text-emerald-400 font-semibold text-xs ml-2">● Aktif</span>` : `<span class="text-gray-500 font-semibold text-xs ml-2">● Değil</span>`;
+
+                box.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSingleAdminSelect(${u.id}, this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                        <div>
+                            <h4 class="font-bold text-white text-sm flex flex-wrap items-center gap-1">
+                                <span>${u.name} (@${u.username})</span>
+                                <span class="text-yellow-400 text-xs ml-2">⭐ ${u.points || 0} Puan</span>
+                                ${onlineStatusHtml}
+                                ${badges}
+                            </h4>
+                            <p class="text-xs text-gray-400">Okul: ${u.school || '-'} | No: ${u.schoolNo || '-'} | Sınıf: ${u.classBranch || '-'}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 justify-end">
+                        <button type="button" onclick="openPointsModal(${u.id})" class="bg-yellow-500 hover:bg-yellow-400 text-slate-950 text-xs px-2.5 py-1.5 rounded cursor-pointer font-bold"><i class="fas fa-star mr-1"></i> Puan Ver</button>
+                        <button type="button" onclick="openUserInfoModal(${u.id})" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1.5 rounded cursor-pointer font-semibold"><i class="fas fa-info-circle mr-1"></i> Detay</button>
+                        <button type="button" onclick="adminToggleRole(${u.id}, 'isStudent')" class="bg-blue-700 hover:bg-blue-600 text-white text-xs px-2 py-1.5 rounded cursor-pointer">${u.isStudent ? 'Öğrenci Al' : 'Öğrenci Yap'}</button>
+                        <button type="button" onclick="adminToggleRole(${u.id}, 'isTeacher')" class="bg-purple-600 hover:bg-purple-500 text-white text-xs px-2 py-1.5 rounded cursor-pointer">${u.isTeacher ? 'Öğretmenliği Al' : 'Öğretmen Yap'}</button>
+                        <button type="button" onclick="adminToggleRole(${u.id}, 'isAdmin')" class="bg-red-600 hover:bg-red-500 text-white text-xs px-2 py-1.5 rounded cursor-pointer font-semibold">${u.isAdmin ? 'Adminliği Al' : 'Admin Yap'}</button>
+                    </div>
+                `;
+                results.appendChild(box);
+            });
+        }
+
+        function openPromoteModal() {
+            selectedPromoteIds.clear();
+            renderPromoteList();
+            document.getElementById('promote-modal').classList.remove('hidden');
+        }
+
+        function closePromoteModal() {
+            document.getElementById('promote-modal').classList.add('hidden');
+        }
+
+        function renderPromoteList() {
+            const list = document.getElementById('promote-students-list');
+            const selectAllBtn = document.getElementById('promote-select-all-btn');
+            const badge = document.getElementById('promote-selected-badge');
+            list.innerHTML = '';
+
+            const students = registeredUsers.filter(u => u.isStudent);
+            if (badge) {
+                badge.innerText = `${selectedPromoteIds.size} / ${students.length} Seçili`;
+            }
+
+            if (selectAllBtn) {
+                const allSelected = students.length > 0 && students.every(s => selectedPromoteIds.has(String(s.id)));
+                if (allSelected) {
+                    selectAllBtn.innerText = "Seçimi Kaldır";
+                    selectAllBtn.className = "bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition";
+                } else {
+                    selectAllBtn.innerText = "Tamamını Seç";
+                    selectAllBtn.className = "bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition";
+                }
+            }
+
+            if (students.length === 0) {
+                list.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Listelenecek öğrenci bulunamadı.</p>`;
+                return;
+            }
+
+            students.forEach(s => {
+                const idStr = String(s.id);
+                const isChecked = selectedPromoteIds.has(idStr);
+                const nextCls = advanceClassString(s.classBranch || '7/A');
+                const prevCls = revertClassString(s.classBranch || '7/A');
+
+                const item = document.createElement('label');
+                item.className = `flex items-center justify-between bg-slate-900 border ${isChecked ? 'border-amber-500 bg-slate-900/90' : 'border-slate-800'} hover:border-amber-500/70 p-2.5 rounded-lg cursor-pointer text-xs transition`;
+                item.innerHTML = `
+                    <div class="flex items-center space-x-2.5">
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSinglePromote('${idStr}', this.checked)" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                        <span class="font-bold text-white">${s.name}</span>
+                        <span class="text-gray-400">(@${s.username})</span>
+                    </div>
+                    <div class="flex items-center space-x-1.5 font-semibold">
+                        <span class="text-red-400 text-[11px]">${prevCls}</span>
+                        <span class="text-gray-500">←</span>
+                        <span class="text-blue-400">${s.classBranch || '-'}</span>
+                        <span class="text-gray-500">→</span>
+                        <span class="text-emerald-400">${nextCls}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function toggleSinglePromote(idStr, checked) {
+            const key = String(idStr);
+            if (checked) selectedPromoteIds.add(key);
+            else selectedPromoteIds.delete(key);
+            renderPromoteList();
+        }
+
+        function togglePromoteSelectAll() {
+            const students = registeredUsers.filter(u => u.isStudent);
+            if (students.length === 0) {
+                showToast("Seçilecek öğrenci bulunamadı.");
+                return;
+            }
+            const allSelected = students.every(s => selectedPromoteIds.has(String(s.id)));
+            if (allSelected) {
+                selectedPromoteIds.clear();
+            } else {
+                students.forEach(s => selectedPromoteIds.add(String(s.id)));
+            }
+            renderPromoteList();
+        }
+
+        function promoteSelectedStudents() {
+            if (selectedPromoteIds.size === 0) {
+                alert("Lütfen sınıf atlatmak için en az bir öğrenci seçin.");
+                return;
+            }
+            let count = 0;
+            registeredUsers.forEach(u => {
+                if (selectedPromoteIds.has(String(u.id))) {
+                    u.classBranch = advanceClassString(u.classBranch || '7/A');
+                    if (currentUser && u.id === currentUser.id) {
+                        currentUser.classBranch = u.classBranch;
+                        localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+                    }
+                    count++;
+                }
+            });
+            saveDataDB();
+            selectedPromoteIds.clear();
+            closePromoteModal();
+            adminSearchUser();
+            showToast(`${count} öğrenci bir üst sınıfa atlatıldı!`);
+        }
+
+        function demoteSelectedStudents() {
+            if (selectedPromoteIds.size === 0) {
+                alert("Lütfen geri eski sınıfa götürmek için en az bir öğrenci seçin.");
+                return;
+            }
+            let count = 0;
+            registeredUsers.forEach(u => {
+                if (selectedPromoteIds.has(String(u.id))) {
+                    u.classBranch = revertClassString(u.classBranch || '7/A');
+                    if (currentUser && u.id === currentUser.id) {
+                        currentUser.classBranch = u.classBranch;
+                        localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+                    }
+                    count++;
+                }
+            });
+            saveDataDB();
+            selectedPromoteIds.clear();
+            closePromoteModal();
+            adminSearchUser();
+            showToast(`${count} öğrenci bir önceki sınıfa geri götürüldü!`);
+        }
+
+        function openPointsModal(userId) {
+            const u = registeredUsers.find(x => x.id === userId);
+            if (!u) return;
+            document.getElementById('points-target-userid').value = u.id;
+            document.getElementById('points-modal-username').innerText = `${u.name} - Puan Yönetimi`;
+            document.getElementById('points-input-amount').value = 10;
+            document.getElementById('points-modal').classList.remove('hidden');
+        }
+
+        function closePointsModal() {
+            document.getElementById('points-modal').classList.add('hidden');
+        }
+
+        function applyPointsChange() {
+            const userId = Number(document.getElementById('points-target-userid').value);
+            const amount = Number(document.getElementById('points-input-amount').value) || 0;
+            const target = registeredUsers.find(x => x.id === userId);
+
+            if (target) {
+                target.points = (target.points || 0) + amount;
+                if (target.id === currentUser.id) {
+                    currentUser.points = target.points;
+                    document.getElementById('user-points').innerText = currentUser.points;
+                    localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+                }
+                saveDataDB();
+                adminSearchUser();
+                closePointsModal();
+                showToast(`${target.name} kullanıcısının puanı güncellendi! (${amount >= 0 ? '+' + amount : amount})`);
+            }
+        }
+
+        function openUserInfoModal(userId) {
+            const u = registeredUsers.find(x => x.id === userId);
+            if (!u) return;
+            const content = document.getElementById('user-modal-content');
+            content.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                    <p><strong class="text-blue-400">Ad Soyad:</strong> ${u.name}</p>
+                    <p><strong class="text-blue-400">Kullanıcı Adı:</strong> ${u.username}</p>
+                    <p><strong class="text-blue-400">E-posta:</strong> ${u.email}</p>
+                    <p><strong class="text-blue-400">Telefon:</strong> ${u.phone}</p>
+                    <p><strong class="text-blue-400">Okul / No:</strong> ${u.school} / ${u.schoolNo}</p>
+                    <p><strong class="text-blue-400">Sınıf/Şube:</strong> ${u.classBranch}</p>
+                    <p><strong class="text-blue-400">Puan:</strong> ${u.points}</p>
+                    <p><strong class="text-blue-400">Şifre:</strong> <span class="text-yellow-400 font-mono">${u.pass || 'Belirtilmemiş'}</span></p>
+                    <p><strong class="text-blue-400">Durum:</strong> ${u.isOnline ? 'Aktif (Çevrimiçi)' : 'Çevrimdışı (Değil)'}</p>
+                </div>
+            `;
+            document.getElementById('user-info-modal').classList.remove('hidden');
+        }
+
+        function closeUserInfoModal() {
+            document.getElementById('user-info-modal').classList.add('hidden');
+        }
+
+        function adminToggleRole(userId, roleKey) {
+            const target = registeredUsers.find(x => x.id === userId);
+            if (target) {
+                target[roleKey] = !target[roleKey];
+                if (target.id === currentUser.id) {
+                    currentUser[roleKey] = target[roleKey];
+                    localStorage.setItem('staired_current_user', JSON.stringify(currentUser));
+                }
+                saveDataDB();
+                adminSearchUser();
+                activateUserSession();
+                showToast(`${target.name} kullanıcısının yetkisi güncellendi.`);
+            }
+        }
+    </script>
+</body>
+</html>
